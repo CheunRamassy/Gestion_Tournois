@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Créer un Tournois</title>
+</head>
+<body>
+
+<form th:action="@{/create}" th:object="${tournois}" method="post">
+    <input type="hidden" th:field="*{id}" th:if="${tournois.id != null}" />
+
+    <div>
+        <label for="nom">Nom <span class="cursor"></span></label>
+        <input type="text" id="nom" th:field="*{nom}" required />
+        <div class="error-message" th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}">Erreur de validation</div>
+    </div>
+
+    <div >
+        <label for="nombreParticipant">nombreParticipant <span class="cursor"></span></label>
+        <input type="number" id="nombreParticipant" th:field="*{nombreParticipant}" required />
+        <div class="error-message" th:if="${#fields.hasErrors('nombreParticipant')}" th:errors="*{nombreParticipant}">Erreur de validation</div>
+    </div>
+
+    <div >
+<!--        <a th:href="@{/utilisateurs}" class="btn">Annuler</a>-->
+<!--        <button type="submit" class="btn">Sauvegarder</button>-->
+    </div>
+</form>
+</body>
+</html>
