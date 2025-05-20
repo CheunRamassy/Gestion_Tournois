@@ -120,5 +120,7 @@ public class Tournois {
     public void setDateFin(Date dateFin) {
         this.dateFin = dateFin;
     }
+
+
 }
 

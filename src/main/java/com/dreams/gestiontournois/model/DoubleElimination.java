@@ -9,22 +9,10 @@ import java.io.Serializable;
 @Entity
 public class DoubleElimination extends Tournois implements Serializable {
 
-    @Id
-    @GeneratedValue
-    private Long id;
+
     private boolean hasConsolationFinal;
 
     public DoubleElimination() {}
-
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public boolean isHasConsolationFinal() {
         return hasConsolationFinal;
