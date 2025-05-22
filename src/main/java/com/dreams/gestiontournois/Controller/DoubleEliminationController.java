@@ -73,7 +73,7 @@ public class DoubleEliminationController {
         redirectAttributes.addFlashAttribute("success",
                 tournois.getId() != null ? "Utilisateur mis à jour avec succès" : "Utilisateur créé avec succès");
 
-        return "redirect:DoubleElimination/ListeTournois";
+        return "redirect:/DoubleElimination/ListeTournois";
     }
 
     @GetMapping("/editTournoi/{id}")
@@ -93,7 +93,7 @@ public class DoubleEliminationController {
         else{
             redirectAttributes.addFlashAttribute("error", "Utilisateur non trouvé avec l'ID: " + id);
         }
-        return "redirect:DoubleElimination/ListeTournois";
+        return "redirect:/DoubleElimination/ListeTournois";
     }
 
 }

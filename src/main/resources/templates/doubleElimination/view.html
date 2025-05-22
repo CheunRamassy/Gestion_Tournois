@@ -1,155 +1,95 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vue d'un tournoi</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-    <!-- Font Awesome pour les icônes -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link th:replace="~{layout :: link_bootstrap1}">
+    <link th:replace="~{layout :: link_bootstrap2}">
     <style>
-        :root {
-            --primary-color: #1a237e;
-            --primary-light: #4a51a3;
-            --primary-dark: #0d1148;
-            --accent-color: #ff9800;
-        }
 
-        body {
-            background-color: #f5f5f5;
-            font-family: 'Roboto', Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        .header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        .content {
-            max-width: 800px;
-            margin: 30px auto;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            padding: 40px;
-        }
-
-        .data-block {
-            margin-bottom: 25px;
-        }
-
-        .data-block h2 {
-            font-size: 1.2rem;
-            color: var(--primary-dark);
-            margin-bottom: 5px;
-        }
-
-        .data-block p {
-            font-size: 1rem;
-            color: #444;
-            margin: 0;
-        }
-
-        .no-data {
-            color: #999;
-            font-style: italic;
-        }
-
-        .btn-outline-secondary {
-            color: #6c757d;
-            border-color: #6c757d;
-            padding: 0.5rem 1.5rem;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-
-        .btn-outline-secondary:hover {
-            color: #fff;
-            background-color: #6c757d;
-            border-color: #6c757d;
-            transform: translateY(-2px);
-
-
-            .footer {
-            background-color: var(--primary-color);
-            color: white;
-            text-align: center;
-            padding: 15px 0;
-            margin-top: 50px;
-        }
     </style>
 </head>
 <body>
 
+<!-- Navigation -->
+<nav th:replace="~{layout :: navbar}"></nav>
+
 <div class="header">
     <h1 th:text="${tournois.nom}">Nom du Tournoi</h1>
+    <p class="lead mb-0">Détails du tournoi</p>
 </div>
 
 <div class="content">
     <div class="data-block">
-        <h2>Nombre de participants</h2>
-        <p th:if="${tournois.nombreParticipant != null}" th:text="${tournois.nombreParticipant}"></p>
+        <h2><i class="fas fa-users"></i>Nombre de participants</h2>
+        <p th:if="${tournois.nombreParticipant != null}" class="participant-count" th:text="${tournois.nombreParticipant}"></p>
         <p th:if="${tournois.nombreParticipant == null}" class="no-data">Aucun participant</p>
     </div>
 
     <div class="data-block">
-        <h2>Nombre d'équipes</h2>
-        <p th:if="${tournois.nombreEquipes != null}" th:text="${tournois.nombreEquipes}"></p>
+        <h2><i class="fas fa-users"></i>Nombre d'équipes</h2>
+        <p th:if="${tournois.nombreEquipes != null}" class="team-count" th:text="${tournois.nombreEquipes}"></p>
         <p th:if="${tournois.nombreEquipes == null}" class="no-data">Aucune équipe</p>
     </div>
 
     <div class="data-block">
-        <h2>Format des matchs</h2>
-        <p th:if="${tournois.formatMatch != null}" th:text="${tournois.formatMatch}"></p>
+        <h2><i class="fas fa-gamepad"></i>Format des matchs</h2>
+        <p th:if="${tournois.formatMatch != null}">
+            <span class="format-badge" th:text="${tournois.formatMatch}"></span>
+        </p>
         <p th:if="${tournois.formatMatch == null}" class="no-data">Aucun format sélectionné</p>
     </div>
 
     <div class="data-block">
-        <h2>Prix de participation</h2>
-        <p th:if="${tournois.prix != null}" th:text="${tournois.prix}"></p>
+        <h2><i class="fas fa-euro-sign"></i>Prix de participation</h2>
+        <p th:if="${tournois.prix != null}" class="price-value">
+            <span th:text="${tournois.prix}"></span> €
+        </p>
         <p th:if="${tournois.prix == null}" class="no-data">Aucun prix attribué</p>
     </div>
 
     <div class="data-block">
-        <h2>Date d'inscription - début</h2>
-        <p th:if="${tournois.dateInscriptionDebut != null}" th:text="${tournois.dateInscriptionDebut}"></p>
+        <h2><i class="fas fa-calendar-plus"></i>Date d'inscription - début</h2>
+        <p th:if="${tournois.dateInscriptionDebut != null}" th:text="${#dates.format(tournois.dateInscriptionDebut, 'dd/MM/yyyy')}"></p>
         <p th:if="${tournois.dateInscriptionDebut == null}" class="no-data">Aucune date</p>
     </div>
 
     <div class="data-block">
-        <h2>Date d'inscription - fin</h2>
-        <p th:if="${tournois.dateInscriptionFin != null}" th:text="${tournois.dateInscriptionFin}"></p>
+        <h2><i class="fas fa-calendar-minus"></i>Date d'inscription - fin</h2>
+        <p th:if="${tournois.dateInscriptionFin != null}" th:text="${#dates.format(tournois.dateInscriptionFin, 'dd/MM/yyyy')}"></p>
         <p th:if="${tournois.dateInscriptionFin == null}" class="no-data">Aucune date</p>
     </div>
 
     <div class="data-block">
-        <h2>Date de début du tournoi</h2>
-        <p th:if="${tournois.dateDebut != null}" th:text="${tournois.dateDebut}"></p>
+        <h2><i class="fas fa-play-circle"></i>Date de début du tournoi</h2>
+        <p th:if="${tournois.dateDebut != null}" th:text="${#dates.format(tournois.dateDebut, 'dd/MM/yyyy')}"></p>
         <p th:if="${tournois.dateDebut == null}" class="no-data">Aucune date</p>
     </div>
 
     <div class="data-block">
-        <h2>Date de fin du tournoi</h2>
-        <p th:if="${tournois.dateFin != null}" th:text="${tournois.dateFin}"></p>
+        <h2><i class="fas fa-flag-checkered"></i>Date de fin du tournoi</h2>
+        <p th:if="${tournois.dateFin != null}" th:text="${#dates.format(tournois.dateFin, 'dd/MM/yyyy')}"></p>
         <p th:if="${tournois.dateFin == null}" class="no-data">Aucune date</p>
     </div>
 
-    <a th:href="@{/DoubleElimination/ListeTournois}" class="btn btn-outline-secondary">
-        <i class="fas fa-arrow-left me-1"></i> Retour
-    </a>
+    <div class="text-center mt-4">
+        <a th:href="@{/DoubleElimination/ListeTournois}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-1"></i> Retour
+        </a>
+    </div>
 </div>
-
-
 
 <div class="footer">
-    &copy; 2025 Tournoi Manager
+    <div class="container">
+        <p class="mb-0">&copy; 2025 TournoiPro - Tous droits réservés</p>
+    </div>
 </div>
 
+<script th:replace="~{layout :: script}"></script>
 </body>
 </html>

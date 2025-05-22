@@ -29,12 +29,13 @@ public class SpringSecurityConfig {
             auth.requestMatchers("/DoubleElimination/delete/{id}").permitAll();
             auth.anyRequest().authenticated();
         }).formLogin(form -> form
-                        .loginPage("/Connection/login")
-                        .defaultSuccessUrl("/Accueil", true)
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/Home", true)
                         .permitAll()
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/Connection/login?logout")
+                        .logoutSuccessUrl("/login?logout")
                         .permitAll()
                 )
                 .build();

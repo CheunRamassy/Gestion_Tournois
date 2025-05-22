@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+>
+
+<head th:replace="~{layout :: page_head}">
+    <meta charset="UTF-8">
+    <title>Home</title>
+
+<body>
+
+<header>
+
+    <nav th:replace="~{layout :: navbar}"></nav>
+
+</header>
+
+<h1>Bienvenue dans le home</h1>
+
+<footer th:replace="~{layout :: footer}" ></footer>
+
+<script th:replace="~{layout :: script}"></script>
+</body>
+</html>

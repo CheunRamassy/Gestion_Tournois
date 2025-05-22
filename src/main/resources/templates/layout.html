@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="page_head">
+    <meta charset="UTF-8">
+    <title>Mon app</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <!-- Bootstrap CSS -->
+    <link th:fragment="link_bootstrap1" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <!-- Font Awesome pour les icônes -->
+    <link th:fragment="link_bootstrap2" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+<header>
+    <h1>Mon application</h1>
+    <!-- Navigation -->
+    <div>
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom" th:fragment="navbar">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-trophy me-2"></i>TournoiPro
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/Home}"><i class="fas fa-home me-1"></i> Accueil</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-trophy me-1"></i> Tournois
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navba<>rDropdown">
+                            <li><a class="dropdown-item" th:href="@{/DoubleElimination/ListeTournois}"><i class="fas fa-trophy me-1"></i> Double Elimination</a></li>
+                            <li><a class="dropdown-item active" th:href="@{/RoundRobin/ListeTournois}"><i class="fas fa-medal me-1"></i> Round Robin</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-users me-1"></i> Équipes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-user me-1"></i> Joueurs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-calendar-alt me-1"></i> Calendrier</a>
+                    </li>
+                </ul>
+                <div class="navbar-nav">
+                    <a class="nav-link" th:href="@{/Connexion/Login}"><i class="fas fa-sign-in-alt me-1"></i> Connexion</a>
+                    <a class="nav-link" href="#"><i class="fas fa-user-plus me-1"></i> Inscription</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    </div>
+</header>
+
+
+
+<!-- Footer -->
+<footer class="footer" th:fragment="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h5><i class="fas fa-trophy me-2"></i>TournoiPro</h5>
+                <p>La meilleure plateforme pour gérer vos tournois sportifs</p>
+            </div>
+            <div class="col-md-3">
+                <h5>Liens utiles</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-white">À propos</a></li>
+                    <li><a href="#" class="text-white">Contact</a></li>
+                    <li><a href="#" class="text-white">Aide</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h5>Suivez-nous</h5>
+                <div class="d-flex">
+                    <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <hr class="my-4 bg-light">
+        <div class="text-center">
+            <p class="mb-0">© 2025 TournoiPro. Tous droits réservés.</p>
+        </div>
+    </div>
+</footer>
+<script th:fragment="script" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

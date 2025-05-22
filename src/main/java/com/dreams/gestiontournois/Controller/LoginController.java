@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/Connection")
 public class LoginController {
 
     @GetMapping("/login")
@@ -23,5 +22,10 @@ public class LoginController {
     @GetMapping("/logout")
     public String logout() {
         return "logout"; // Thymeleaf retournera templates/login.html
+    }
+
+    @GetMapping("/Home")
+    public String home() {
+        return "home";
     }
 }
