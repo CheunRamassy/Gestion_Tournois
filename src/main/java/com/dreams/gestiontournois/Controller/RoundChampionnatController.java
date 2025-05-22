@@ -75,6 +75,6 @@ public class RoundChampionnatController {
         } else {
             redirectAttributes.addFlashAttribute("error", "Utilisateur non trouvé avec l'ID: " + id);
         }
-        return "redirect:/ListeTournois";
+        return "redirect:/RoundRobin/ListeTournois";
     }
 }

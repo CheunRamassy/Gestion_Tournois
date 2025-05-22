@@ -9,10 +9,15 @@ import java.io.Serializable;
 @Entity
 public class SimpleElimination extends Tournois implements Serializable {
 
-    @Id
-    @GeneratedValue
-    private Long id;
     private boolean hasThirdPlaceMatch;
+
+    public boolean isHasThirdPlaceMatch() {
+        return hasThirdPlaceMatch;
+    }
+
+    public void setHasThirdPlaceMatch(boolean hasThirdPlaceMatch) {
+        this.hasThirdPlaceMatch = hasThirdPlaceMatch;
+    }
 
     public SimpleElimination() {
 

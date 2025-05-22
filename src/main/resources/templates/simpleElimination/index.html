@@ -1,10 +1,113 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Liste des Championnats</title>
+    <!-- Bootstrap CSS -->
+    <link th:replace="~{layout :: link_bootstrap1}">
+    <link th:replace="~{layout :: link_bootstrap2}">
 </head>
 <body>
 
+<nav th:replace="~{layout :: navbar}"></nav>
+
+<!-- Contenu principal -->
+<div class="container mt-4">
+    <!-- Liste des championnats -->
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-medal me-2"></i>Liste des tournois simple élimination
+                </h5>
+                <a th:href="@{/SimpleElimination/createTournoi}" class="btn btn-success create-btn">
+                    <i class="fas fa-plus-circle me-1"></i> Créer un tournoi
+                </a>
+            </div>
+
+            <div th:if="${#lists.isEmpty(tournois)}" class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i> Aucun tournoi disponible pour le moment.
+            </div>
+
+            <div class="table-responsive">
+                <table th:if="${!#lists.isEmpty(tournois)}" class="table table-striped tournament-table">
+                    <thead>
+                    <tr>
+                        <th>Nom du Championnat</th>
+                        <th>Participants</th>
+                        <th>Équipes</th>
+                        <th>Format</th>
+                        <th>3ème Place</th>
+                        <th>Prix</th>
+                        <th>Période</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="simple : ${tournois}">
+                        <td>
+                            <strong th:text="${simple.nom}">Nom du championnat</strong>
+                        </td>
+                        <td>
+                            <i class="fas fa-users me-1"></i>
+                            <span th:text="${simple.nombreParticipant}">0</span>
+                        </td>
+                        <td>
+                            <i class="fas fa-users me-1"></i>
+                            <span th:text="${simple.nombreEquipes}">0</span>
+                        </td>
+                        <td>
+                            <span class="badge bg-primary" th:text="${simple.formatMatch}">Format</span>
+                        </td>
+                        <td>
+                            <span th:if="${simple.hasThirdPlaceMatch}" class="match-return-badge">
+                                <i class="fas fa-exchange-alt me-1"></i>avec 3ème place
+                            </span>
+                            <span th:unless="${simple.hasThirdPlaceMatch}" class="no-match-return-badge">
+                                <i class="fas fa-arrow-right me-1"></i>Sans 3ème place
+                            </span>
+                        </td>
+                        <td>
+                            <i class="fas fa-euro-sign me-1"></i>
+                            <span th:text="${simple.prix}">0</span>
+                        </td>
+                        <td>
+                            <div class="d-flex flex-column">
+                                <small class="text-muted">
+                                    <i class="fas fa-calendar me-1"></i>
+                                    <span th:text="${#dates.format(simple.dateDebut, 'dd/MM/yyyy')}">Date début</span>
+                                </small>
+                                <small class="text-muted">
+                                    <i class="fas fa-calendar-check me-1"></i>
+                                    <span th:text="${#dates.format(simple.dateFin, 'dd/MM/yyyy')}">Date fin</span>
+                                </small>
+                            </div>
+                        </td>
+                        <td class="action-cell">
+                            <a th:href="@{/SimpleElimination/view/{id}(id=${simple.id})}" class="action-btn view">
+                                <i class="fas fa-eye me-1"></i> Voir
+                            </a>
+                            <a th:href="@{/SimpleElimination/editTournoi/{id}(id=${simple.id})}" class="action-btn edit">
+                                <i class="fas fa-edit me-1"></i> Éditer
+                            </a>
+                            <form th:action="@{/SimpleElimination/delete/{id}(id=${simple.id})}" method="post" style="display: inline;">
+                                <button type="submit" class="action-btn delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce tournoi ?')">
+                                    <i class="fas fa-trash-alt me-1"></i> Supprimer
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="~{layout :: footer}" ></footer>
+
+<script th:replace="~{layout :: script}"></script>
 </body>
 </html>
