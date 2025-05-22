@@ -29,7 +29,8 @@ public class SpringSecurityConfig {
             auth.requestMatchers("/DoubleElimination/delete/{id}").permitAll();
             auth.anyRequest().authenticated();
         }).formLogin(form -> form
-                        .loginPage("/Connection/login")      // ← ici on définit la page de login personnalisée
+                        .loginPage("/Connection/login")
+                        .defaultSuccessUrl("/Accueil", true)
                         .permitAll()
                 )
                 .logout(logout -> logout

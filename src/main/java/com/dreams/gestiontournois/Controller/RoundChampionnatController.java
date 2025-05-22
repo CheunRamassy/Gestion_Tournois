@@ -33,7 +33,7 @@ public class RoundChampionnatController {
     @GetMapping("/view/{id}")
     public String showRoundChampionnat(@PathVariable("id") Long id, Model model) {
         Optional<RoundChampionnat> tournoi = roundChampionnatService.getRoundChampionnatById(id);
-        model.addAttribute("tournoi", tournoi);
+        model.addAttribute("tournoi", tournoi.get());
         return "roundChampionnat/view";
     }
 
@@ -43,7 +43,7 @@ public class RoundChampionnatController {
         return "roundChampionnat/create";
         }
 
-    @GetMapping("/save")
+    @PostMapping("/save")
     public String saveRoundChampionnat(
             @ModelAttribute("tournoi") RoundChampionnat tournoi,
             BindingResult result,
@@ -53,19 +53,21 @@ public class RoundChampionnatController {
             return "roundChampionnat/create";
         }
 
+        roundChampionnatService.saveRoundChampionnat(tournoi);
+
         redirectAttributes.addFlashAttribute("success",
                 tournoi.getId() != null ? "Utilisateur mis à jour avec succès" : "Utilisateur créé avec succès");
-        return "redirect:roundChampionnat/ListeTournois/";
+        return "redirect:/RoundRobin/ListeTournois";
     }
 
     @GetMapping("/editTournoi/{id}")
     public String editRoundChampionnat(@PathVariable("id") Long id, Model model) {
         Optional<RoundChampionnat> tournoi = roundChampionnatService.getRoundChampionnatById(id);
-        model.addAttribute("tournoi", tournoi);
-        return "roundChampionnat/edit";
+        model.addAttribute("tournoi", tournoi.get());
+        return "roundChampionnat/create";
     }
 
-    @GetMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     public String deleteRoundChampionnat(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         Boolean tournoi = roundChampionnatService.deleteRoundChampionnatById(id);
         if (tournoi) {
@@ -73,6 +75,6 @@ public class RoundChampionnatController {
         } else {
             redirectAttributes.addFlashAttribute("error", "Utilisateur non trouvé avec l'ID: " + id);
         }
-        return "redirect:roundChampionnat/ListeTournois/";
+        return "redirect:/ListeTournois";
     }
 }
