@@ -1,0 +1,327 @@
+
+En t'inspirant de ce css <style>     .navbar-custom {         background-color:
+        #1a237e;     }     .hero-section {         background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("/api/placeholder/1200/400");         background-size: cover;         color: white;         padding: 100px 0;         margin-bottom: 30px;     }     .card-tournament {         margin-bottom: 20px;         transition: transform 0.3s;     }     .card-tournament:hover {         transform: translateY(-5px);         box-shadow: 0 10px 20px rgba(0,0,0,0.2);     }     .footer {         background-color:
+        #1a237e;         color: white;         padding: 20px 0;         margin-top: 50px;     }     .status-badge-active {         background-color:
+        #28a745;     }     .status-badge-upcoming {         background-color:
+        #ffc107;     }     .status-badge-completed {         background-color:
+        #6c757d;     }     .tournament-table {         width: 100%;         border-collapse: collapse;         margin-top: 20px;         box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);     }     .tournament-table th {         background-color:
+        #1a237e;         color: white;         text-align: left;         padding: 15px;     }     .tournament-table td {         padding: 12px 15px;         border-bottom: 1px solid #ddd;     }     .tournament-table tr:hover {         background-color:
+        #f1f1f1;     }     .action-btn {         display: inline-block;         padding: 6px 12px;         margin-right: 5px;         border-radius: 4px;         text-decoration: none;         color: white;         font-weight: 500;         transition: background-color 0.3s;     }     .action-btn.view {         background-color:
+        #007bff;     }     .action-btn.edit {         background-color:
+        #ffc107;         color:
+        #212529;     }     .action-btn.delete {         background-color:
+        #dc3545;     }     .action-btn:hover {         opacity: 0.9;         color: white;     }     .action-btn.edit:hover {         color:
+        #212529;     }     .create-btn {         margin-bottom: 20px;     } </style>refait mon css de mon login  <!-- templates/login.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login personnalisé</title>
+</head>
+<body>
+<h2>Se connecter</h2>
+<form th:action="@{/login}" method="post">
+    <div>
+        <label for="username">Nom d'utilisateur:</label>
+        <input type="text" name="username" id="username"/>
+    </div>
+    <div>
+        <label for="password">Mot de passe:</label>
+        <input type="password" name="password" id="password"/>
+    </div>
+    <div>
+        <button type="submit">Connexion</button>
+    </div>
+    <div th:if="${param.error}">
+        <p style="color:red;">Identifiants invalides</p>
+    </div>
+    <div th:if="${param.logout}">
+        <p>Déconnecté avec succès</p>
+    </div>
+</form>
+</body>
+</html>
+
+Je vais vous créer un login page plus moderne et esthétique qui s'harmonise avec votre style CSS actuel. Voici une version améliorée de votre page de connexion:
+
+
+Page de connexion améliorée
+Artéfact interactif
+J'ai créé une page de connexion moderne qui s'harmonise avec votre code CSS existant, en conservant la couleur principale
+#1a237e que vous utilisez dans votre design.
+
+Cette nouvelle version comprend:
+
+Un design centré et épuré avec des ombres et effets de hover élégants
+Une icône thématique (pièce d'échecs) qui s'accorde avec ce qui semble être un gestionnaire de tournois d'échecs
+Des champs de formulaire flottants et stylisés avec des icônes
+Des messages d'erreur et de succès mieux formatés
+Une option "Se souvenir de moi" et un lien "Mot de passe oublié"
+Des animations subtiles sur le bouton de connexion
+Un lien d'inscription pour les nouveaux utilisateurs
+Un design responsive qui fonctionne bien sur tous les appareils
+Le design utilise Bootstrap 5 et Font Awesome pour les icônes, ce qui facilite la maintenance tout en offrant une apparence professionnelle.
+
+Souhaitez-vous que je modifie certains aspects de cette page de connexion?
+
+
+
+
+Dans le même style mais pour ce html <!-- templates/logout.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Déconnexion</title>
+</head>
+<body>
+<h2>Vous avez été déconnecté</h2>
+<p>Merci de votre visite.</p>
+<a th:href="@{/login}">Se reconnecter</a>
+</body>
+</html>
+
+Je vais créer une page de déconnexion harmonisée avec le style de la page de connexion précédente.
+
+
+Page de déconnexion améliorée
+Artéfact interactif
+J'ai créé une page de déconnexion qui s'harmonise parfaitement avec le style de la page de connexion précédente. Cette nouvelle page présente:
+
+Un design cohérent avec la même palette de couleurs et le même style visuel
+Une animation de coche verte qui confirme visuellement la déconnexion réussie
+Un message de remerciement plus élaboré et accueillant
+Un bouton "Se reconnecter" bien visible avec une icône et des effets de survol
+Un lien "Contactez-nous" dans le pied de page pour l'assistance
+Le même style de conteneur avec ombre et bordures arrondies
+Une disposition centrée et responsive qui s'adapte à tous les appareils
+Cette page maintient l'identité visuelle de votre application tout en offrant une expérience utilisateur fluide et professionnelle lors de la déconnexion.
+
+Souhaitez-vous que j'apporte des modifications à cette page de déconnexion ou que je crée d'autres éléments d'interface pour votre application?
+
+
+
+
+toujours dans le meme style mais avec ce code <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>You are Denied!</title>
+</head>
+<body>
+Vous n'avez pas accès à cette page !
+</body>
+</html>
+
+Je vais créer une page d'accès refusé ("access denied") qui s'harmonise parfaitement avec vos pages précédentes :
+
+
+Page d'accès refusé améliorée
+Artéfact interactif
+J'ai créé une page d'accès refusé (403) qui s'harmonise parfaitement avec vos autres pages tout en communiquant clairement le message d'erreur à l'utilisateur. Cette page comprend :
+
+Un design cohérent avec vos pages précédentes, utilisant la même palette de couleurs tout en introduisant la couleur rouge pour signaler l'erreur
+Une icône de bouclier avec point d'exclamation animée qui attire l'attention sur le problème
+Un message clair expliquant que l'accès est refusé et suggérant de contacter un administrateur
+Deux boutons d'action : un pour retourner à l'accueil et un autre pour se reconnecter (éventuellement avec un compte disposant des autorisations nécessaires)
+Un lien vers l'assistance technique dans le pied de page
+Une légère animation "pulse" sur l'icône pour attirer l'attention
+Le même style de conteneur avec ombre et bordures arrondies que
+
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Accès refusé - Chess Tournament Manager</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1a237e;
+            --primary-light: #4a51a3;
+            --primary-dark: #0d1148;
+            --accent-color: #ff9800;
+            --danger-color: #dc3545;
+            --danger-dark: #b02a37;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            font-family: 'Roboto', Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .denied-container {
+            width: 100%;
+            max-width: 450px;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .denied-header {
+            margin-bottom: 2rem;
+        }
+
+        .denied-header h2 {
+            color: var(--danger-color);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .denied-message {
+            color: #6c757d;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 35, 126, 0.3);
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5c636a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 117, 125, 0.3);
+            color: white;
+        }
+
+        .denied-icon {
+            font-size: 5rem;
+            color: var(--danger-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .denied-footer {
+            margin-top: 2rem;
+            color: #6c757d;
+            font-size: 0.85rem;
+        }
+
+        .denied-footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .denied-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .action-buttons {
+            margin-top: 2rem;
+        }
+
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .denied-shield {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .shield-icon {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 5rem;
+            color: var(--danger-color);
+        }
+
+        .exclamation-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -40%);
+            font-size: 2.5rem;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="denied-container">
+        <div class="denied-header">
+            <div class="denied-shield pulse-animation">
+                <i class="fas fa-shield-alt shield-icon"></i>
+                <i class="fas fa-exclamation exclamation-icon"></i>
+            </div>
+            <h2>Accès refusé</h2>
+        </div>
+
+        <div class="denied-message">
+            <p>Vous n'avez pas les autorisations nécessaires pour accéder à cette page.</p>
+            <p>Veuillez contacter un administrateur si vous pensez qu'il s'agit d'une erreur.</p>
+        </div>
+
+        <div class="action-buttons">
+            <a href="/" class="btn btn-primary">
+                <i class="fas fa-home me-2"></i>Accueil
+            </a>
+            <a href="/login" class="btn btn-secondary">
+                <i class="fas fa-sign-in-alt me-2"></i>Connexion
+            </a>
+        </div>
+
+        <div class="denied-footer">
+            <p>Besoin d'aide? <a href="#">Contactez l'assistance</a></p>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

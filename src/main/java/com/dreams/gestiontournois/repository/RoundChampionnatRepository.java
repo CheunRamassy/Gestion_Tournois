@@ -1,7 +1,7 @@
 package com.dreams.gestiontournois.repository;
 
 import com.dreams.gestiontournois.model.RoundChampionnat;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface RoundChampionnatRepository extends CrudRepository<RoundChampionnat, Long> {
+public interface RoundChampionnatRepository extends JpaRepository<RoundChampionnat, Long> {
 }

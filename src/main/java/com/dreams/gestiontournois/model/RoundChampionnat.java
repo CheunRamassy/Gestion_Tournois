@@ -9,10 +9,15 @@ import java.io.Serializable;
 @Entity
 public class RoundChampionnat extends Tournois implements Serializable {
 
-    @Id
-    @GeneratedValue
-    private Long id;
     private boolean matchRetour;
 
     public RoundChampionnat() {}
+
+    public boolean isMatchRetour() {
+        return matchRetour;
+    }
+
+    public void setMatchRetour(boolean matchRetour) {
+        this.matchRetour = matchRetour;
+    }
 }

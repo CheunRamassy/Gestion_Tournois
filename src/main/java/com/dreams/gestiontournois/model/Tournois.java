@@ -1,6 +1,7 @@
 package com.dreams.gestiontournois.model;
 
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -19,9 +20,17 @@ public class Tournois {
     private Integer nombreEquipes;
     private String formatMatch;
     private String prix;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateInscriptionDebut;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateInscriptionFin;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateDebut;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateFin;
 
 

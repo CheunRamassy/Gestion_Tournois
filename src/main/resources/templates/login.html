@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Connexion - Chess Tournament Manager</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1a237e;
+            --primary-light: #4a51a3;
+            --primary-dark: #0d1148;
+            --accent-color: #ff9800;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            font-family: 'Roboto', Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 420px;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-header h2 {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-header .subtitle {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .form-floating {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(26, 35, 126, 0.25);
+        }
+
+        .input-group-text {
+            background-color: #f8f9fa;
+            color: #6c757d;
+        }
+
+        .btn-login {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 0.75rem;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s;
+        }
+
+        .btn-login:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 35, 126, 0.3);
+        }
+
+        .alert {
+            border-radius: 5px;
+            padding: 0.75rem 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            border-color: #f5c2c7;
+            color: #842029;
+        }
+
+        .alert-success {
+            background-color: #d1e7dd;
+            border-color: #badbcc;
+            color: #0f5132;
+        }
+
+        .form-check {
+            margin-bottom: 1rem;
+        }
+
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .forgot-password {
+            display: block;
+            text-align: right;
+            color: var(--primary-color);
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+            text-decoration: none;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .login-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #6c757d;
+            font-size: 0.85rem;
+        }
+
+        .login-footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .login-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .login-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="login-container">
+        <div class="login-header">
+            <div class="login-icon">
+                <i class="fas fa-chess-knight"></i>
+            </div>
+            <h2>Bienvenue</h2>
+            <p class="subtitle">Connectez-vous pour accéder à votre espace</p>
+        </div>
+
+        <div th:if="${param.error}" class="alert alert-danger">
+            <i class="fas fa-exclamation-circle me-2"></i>
+            Identifiants incorrects. Veuillez réessayer.
+        </div>
+
+        <div th:if="${param.logout}" class="alert alert-success">
+            <i class="fas fa-check-circle me-2"></i>
+            Vous avez été déconnecté avec succès.
+        </div>
+
+        <form th:action="@{/Connection/login}" method="post">
+            <div class="input-group mb-3">
+                    <span class="input-group-text">
+                        <i class="fas fa-user"></i>
+                    </span>
+                <div class="form-floating flex-grow-1">
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Nom d'utilisateur" required>
+                    <label for="username">Nom d'utilisateur</label>
+                </div>
+            </div>
+
+            <div class="input-group mb-3">
+                    <span class="input-group-text">
+                        <i class="fas fa-lock"></i>
+                    </span>
+                <div class="form-floating flex-grow-1">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe" required>
+                    <label for="password">Mot de passe</label>
+                </div>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="remember-me" name="remember-me">
+                <label class="form-check-label" for="remember-me">
+                    Se souvenir de moi
+                </label>
+            </div>
+
+            <a href="#" class="forgot-password">Mot de passe oublié?</a>
+
+            <button  type="submit" class="btn btn-login">
+                <i class="fas fa-sign-in-alt me-2"></i>Connexion
+            </button>
+        </form>
+
+        <div class="login-footer">
+            <p>Vous n'avez pas de compte? <a href="#">Inscription</a></p>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
