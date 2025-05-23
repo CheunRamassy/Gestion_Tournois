@@ -9,6 +9,8 @@
     <link th:fragment="link_bootstrap1" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <!-- Font Awesome pour les icônes -->
     <link th:fragment="link_bootstrap2" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link th:fragment="link_googleFront"  href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -16,46 +18,72 @@
     <h1>Mon application</h1>
     <!-- Navigation -->
     <div>
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom" th:fragment="navbar">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <i class="fas fa-trophy me-2"></i>TournoiPro
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/Home}"><i class="fas fa-home me-1"></i> Accueil</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-trophy me-1"></i> Tournois
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navba<>rDropdown">
-                            <li><a class="dropdown-item" th:href="@{/DoubleElimination/ListeTournois}"><i class="fas fa-trophy me-1"></i> Double Elimination</a></li>
-                            <li><a class="dropdown-item" th:href="@{/RoundRobin/ListeTournois}"><i class="fas fa-medal me-1"></i> Round Robin</a></li>
-                            <li><a class="dropdown-item" th:href="@{/SimpleElimination/ListeTournois}"><i class="fas fa-medal me-1"></i> Simple Elimination</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-users me-1"></i> Équipes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-user me-1"></i> Joueurs</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-calendar-alt me-1"></i> Calendrier</a>
-                    </li>
-                </ul>
-                <div class="navbar-nav">
-                    <a class="nav-link" th:href="@{/Connexion/Login}"><i class="fas fa-sign-in-alt me-1"></i> Connexion</a>
-                    <a class="nav-link" href="#"><i class="fas fa-user-plus me-1"></i> Inscription</a>
+        <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top" th:fragment="navbar">
+            <div class="container">
+                <a class="navbar-brand fw-bold" href="#">
+                    <i class="fas fa-gamepad me-2"></i>GameTourneyPro
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-home me-1"></i>Accueil
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle active" href="#" id="tournoiDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-trophy me-1"></i>Mes Tournois
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="tournoiDropdown">
+                                <li>
+                                    <a class="dropdown-item" th:href="@{/SimpleElimination/ListeTournois}">
+                                        <i class="fas fa-list"></i>Tous mes tournois
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-plus-circle"></i>Créer un tournoi
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-play"></i>Tournois en cours
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-check-circle"></i>Tournois terminés
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-calendar-alt"></i>Tournois programmés
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-gamepad me-1"></i>Jeux
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-users me-1"></i>Communauté
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-envelope me-1"></i>Contact
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </div>
-    </nav>
+        </nav>
     </div>
 </header>
 

@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -22,7 +23,8 @@ public class SimpleEliminationController {
 
     @GetMapping("/ListeTournois")
     public String getAllSimpleElimination(Model model) {
-        model.addAttribute("simpleEliminations", simpleEliminationService.getAllSimpleEliminations());
+        List<SimpleElimination> tournois = simpleEliminationService.getAllSimpleEliminations();
+        model.addAttribute("tournois", tournois);
         return "/simpleElimination/index";
     }
 
@@ -33,7 +35,7 @@ public class SimpleEliminationController {
         return "/simpleElimination/view";
     }
 
-    @GetMapping("/create")
+    @GetMapping("/createTournoi")
     public String createSimpleElimination(Model model) {
         model.addAttribute("tournoi", new SimpleElimination());
         return "/simpleElimination/create";
