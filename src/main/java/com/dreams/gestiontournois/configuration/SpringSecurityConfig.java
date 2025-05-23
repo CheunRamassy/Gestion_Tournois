@@ -21,6 +21,9 @@ public class SpringSecurityConfig {
         return http.authorizeHttpRequests(auth ->{
             auth.requestMatchers("/DoubleElimination/admin").hasRole("ADMIN");
             auth.requestMatchers("/DoubleElimination/user").hasRole("USER");
+            auth.requestMatchers("/Jeux/create").hasRole("ADMIN");
+            auth.requestMatchers("/Jeux/edit").hasRole("ADMIN");
+            auth.requestMatchers("/Jeux/delete").hasRole("ADMIN");
             auth.requestMatchers("/DoubleElimination/ListeTournois").permitAll();
             auth.requestMatchers("/DoubleElimination/view/{id}").permitAll();
             auth.requestMatchers("/DoubleElimination/createTournois").permitAll();

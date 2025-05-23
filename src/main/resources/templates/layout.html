@@ -29,7 +29,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="/Home">
                                 <i class="fas fa-home me-1"></i>Accueil
                             </a>
                         </li>
@@ -40,33 +40,23 @@
                             <ul class="dropdown-menu" aria-labelledby="tournoiDropdown">
                                 <li>
                                     <a class="dropdown-item" th:href="@{/SimpleElimination/ListeTournois}">
-                                        <i class="fas fa-list"></i>Tous mes tournois
+                                        Simple Elimination
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-plus-circle"></i>Créer un tournoi
+                                    <a class="dropdown-item" th:href="@{/DoubleElimination/ListeTournois}">
+                                        Double Elimination
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-play"></i>Tournois en cours
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-check-circle"></i>Tournois terminés
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-calendar-alt"></i>Tournois programmés
+                                    <a class="dropdown-item" th:href="@{/RoundRobin/ListeTournois}">
+                                        RoundRobin
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" th:href="@{/Jeux/ListeJeux}">
                                 <i class="fas fa-gamepad me-1"></i>Jeux
                             </a>
                         </li>

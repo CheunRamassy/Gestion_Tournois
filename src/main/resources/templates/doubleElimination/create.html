@@ -1,101 +1,105 @@
 <!DOCTYPE html>
-<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/create.css}">
     <title>Créer un Tournoi</title>
-    <!-- Bootstrap CSS -->
-    <link th:replace="~{layout :: link_bootstrap1}">
-    <link th:replace="~{layout :: link_bootstrap2}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
 
+    </style>
 </head>
 <body>
+<!-- Floating Elements -->
+<div class="floating-elements">
+    <div class="floating-element">🎮</div>
+    <div class="floating-element">🏆</div>
+    <div class="floating-element">⚡</div>
+    <div class="floating-element">🎯</div>
+</div>
 
 <!-- Navigation -->
 <nav th:replace="~{layout :: navbar}"></nav>
 
-
-<!-- En-tête du formulaire -->
+<!-- Form Header -->
 <header class="form-header">
     <div class="container text-center">
-        <h1 class="display-5 fw-bold" th:text="${tournois.id != null} ? 'Modifier un tournoi' : 'Créer un tournoi'">Créer un tournoi</h1>
-        <p class="lead">Remplissez les informations ci-dessous pour configurer votre tournoi</p>
+        <h1 class="form-title">Créer un Tournoi</h1>
+        <p class="form-subtitle">Remplissez les informations ci-dessous pour configurer votre tournoi</p>
     </div>
 </header>
 
-<!-- Formulaire principal -->
+<!-- Main Form -->
 <main class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="form-container">
-                <form th:action="@{/DoubleElimination/save}" th:object="${tournois}" method="post" class="needs-validation" novalidate>
-                    <input type="hidden" th:field="*{id}" th:if="${tournois.id != null}" />
+                <form action="/SimpleElimination/save" method="post" class="needs-validation" novalidate>
 
-                    <!-- Nom du tournoi -->
+                    <!-- Tournament Name -->
                     <div class="form-group">
                         <label for="nom" class="form-label">Nom du tournoi <span class="text-danger">*</span></label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="fas fa-trophy"></i></span>
-                            <input type="text" class="form-control" id="nom" th:field="*{nom}" required
+                            <input type="text" class="form-control" id="nom" name="nom" required
                                    placeholder="Entrez le nom du tournoi" maxlength="100" />
                         </div>
-                        <div class="error-message" th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}">
-                            Erreur de validation
+                        <div class="error-message" style="display: none;">
+                            Veuillez entrer un nom de tournoi valide
                         </div>
                     </div>
 
-                    <!-- Nombre de participants -->
+                    <!-- Number of Participants -->
                     <div class="form-group">
                         <label for="nombreParticipant" class="form-label">
                             Nombre de participants <span class="text-danger">*</span>
-                            <i class="fas fa-info-circle tooltip-icon" data-bs-toggle="tooltip" title="Pour les tournois à élimination directe, préférez un nombre de participants qui est une puissance de 2 (4, 8, 16, 32, etc.)"></i>
+                            <i class="fas fa-info-circle tooltip-icon" title="Pour les tournois à élimination directe, préférez un nombre de participants qui est une puissance de 2 (4, 8, 16, 32, etc.)"></i>
                         </label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="fas fa-users"></i></span>
-                            <input type="number" class="form-control" id="nombreParticipant" th:field="*{nombreParticipant}" required
+                            <input type="number" class="form-control" id="nombreParticipant" name="nombreParticipant" required
                                    min="2" max="1024" placeholder="Nombre de participants" />
                         </div>
-                        <div class="error-message" th:if="${#fields.hasErrors('nombreParticipant')}" th:errors="*{nombreParticipant}">
-                            Erreur de validation
+                        <div class="error-message" style="display: none;">
+                            Le nombre de participants doit être entre 2 et 1024
                         </div>
                     </div>
 
-                    <!-- Finale de consolation -->
+                    <!-- ThasConsolationFinal -->
                     <div class="form-group">
-                        <label class="form-label d-block">Finale de consolation</label>
+                        <label class="form-label d-block">Mettre une consolation finale</label>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="hasConsolationFinal" id="hasConsolationFinalYes" th:field="*{hasConsolationFinal}" th:value="true" checked>
+                            <input class="form-check-input" type="radio" name="hasConsolationFinal" id="hasConsolationFinalYes" value="true" checked>
                             <label class="form-check-label" for="hasConsolationFinalYes">Oui</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="hasConsolationFinal" id="hasConsolationFinalNo" th:field="*{hasConsolationFinal}" th:value="false">
+                            <input class="form-check-input" type="radio" name="hasConsolationFinal" id="hasConsolationFinalNo" value="false">
                             <label class="form-check-label" for="hasConsolationFinalNo">Non</label>
-                        </div>
-                        <div class="error-message" th:if="${#fields.hasErrors('hasConsolationFinal')}" th:errors="*{hasConsolationFinal}">
-                            Erreur de validation
                         </div>
                     </div>
 
-                    <!-- Nombre d'équipes -->
+                    <!-- Number of Teams -->
                     <div class="form-group">
                         <label for="nombreEquipes" class="form-label">Nombre d'équipes <span class="text-danger">*</span></label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="fas fa-users"></i></span>
-                            <input type="number" class="form-control" id="nombreEquipes" th:field="*{nombreEquipes}" required
+                            <input type="number" class="form-control" id="nombreEquipes" name="nombreEquipes" required
                                    min="1" max="512" placeholder="Nombre d'équipes participantes" />
                         </div>
-                        <div class="error-message" th:if="${#fields.hasErrors('nombreEquipes')}" th:errors="*{nombreEquipes}">
-                            Erreur de validation
+                        <div class="error-message" style="display: none;">
+                            Le nombre d'équipes doit être entre 1 et 512
                         </div>
                     </div>
 
-                    <!-- Format des matchs -->
+                    <!-- Match Format -->
                     <div class="form-group">
                         <label for="formatMatch" class="form-label">Format des matchs <span class="text-danger">*</span></label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="fas fa-gamepad"></i></span>
-                            <select class="form-select" id="formatMatch" th:field="*{formatMatch}" required>
+                            <select class="form-select" id="formatMatch" name="formatMatch" required>
                                 <option value="">Sélectionnez un format</option>
                                 <option value="Bo1">Bo1 (Best of 1)</option>
                                 <option value="Bo3">Bo3 (Best of 3)</option>
@@ -103,80 +107,80 @@
                                 <option value="Bo7">Bo7 (Best of 7)</option>
                             </select>
                         </div>
-                        <div class="error-message" th:if="${#fields.hasErrors('formatMatch')}" th:errors="*{formatMatch}">
-                            Erreur de validation
+                        <div class="error-message" style="display: none;">
+                            Veuillez sélectionner un format de match
                         </div>
                     </div>
 
-                    <!-- Prix de participation -->
+                    <!-- Entry Fee -->
                     <div class="form-group">
                         <label for="prix" class="form-label">Prix de participation <span class="text-danger">*</span></label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="fas fa-euro-sign"></i></span>
-                            <input type="number" class="form-control" id="prix" th:field="*{prix}" required
+                            <input type="number" class="form-control" id="prix" name="prix" required
                                    min="0" step="0.01" placeholder="Frais d'inscription (€)" />
                         </div>
-                        <div class="error-message" th:if="${#fields.hasErrors('prix')}" th:errors="*{prix}">
-                            Erreur de validation
+                        <div class="error-message" style="display: none;">
+                            Veuillez entrer un prix valide
                         </div>
                     </div>
 
                     <!-- Dates -->
                     <div class="row">
-                        <!-- Date de début des inscriptions -->
+                        <!-- Registration Start Date -->
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="dateInscriptionDebut" class="form-label">Début des inscriptions <span class="text-danger">*</span></label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                                    <input type="date" class="form-control" id="dateInscriptionDebut" th:field="*{dateInscriptionDebut}" required />
+                                    <input type="date" class="form-control" id="dateInscriptionDebut" name="dateInscriptionDebut" required />
                                 </div>
-                                <div class="error-message" th:if="${#fields.hasErrors('dateInscriptionDebut')}" th:errors="*{dateInscriptionDebut}">
-                                    Erreur de validation
+                                <div class="error-message" style="display: none;">
+                                    Veuillez sélectionner une date de début
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Date de fin des inscriptions -->
+                        <!-- Registration End Date -->
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="dateInscriptionFin" class="form-label">Fin des inscriptions <span class="text-danger">*</span></label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                                    <input type="date" class="form-control" id="dateInscriptionFin" th:field="*{dateInscriptionFin}" required />
+                                    <input type="date" class="form-control" id="dateInscriptionFin" name="dateInscriptionFin" required />
                                 </div>
-                                <div class="error-message" th:if="${#fields.hasErrors('dateInscriptionFin')}" th:errors="*{dateInscriptionFin}">
-                                    Erreur de validation
+                                <div class="error-message" style="display: none;">
+                                    Veuillez sélectionner une date de fin
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="row mt-3">
-                        <!-- Date de début du tournoi -->
+                        <!-- Tournament Start Date -->
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="dateDebut" class="form-label">Début du tournoi <span class="text-danger">*</span></label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                                    <input type="date" class="form-control" id="dateDebut" th:field="*{dateDebut}" required />
+                                    <input type="date" class="form-control" id="dateDebut" name="dateDebut" required />
                                 </div>
-                                <div class="error-message" th:if="${#fields.hasErrors('dateDebut')}" th:errors="*{dateDebut}">
-                                    Erreur de validation
+                                <div class="error-message" style="display: none;">
+                                    Veuillez sélectionner une date de début
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Date de fin du tournoi -->
+                        <!-- Tournament End Date -->
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="dateFin" class="form-label">Fin du tournoi <span class="text-danger">*</span></label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                                    <input type="date" class="form-control" id="dateFin" th:field="*{dateFin}" required />
+                                    <input type="date" class="form-control" id="dateFin" name="dateFin" required />
                                 </div>
-                                <div class="error-message" th:if="${#fields.hasErrors('dateFin')}" th:errors="*{dateFin}">
-                                    Erreur de validation
+                                <div class="error-message" style="display: none;">
+                                    Veuillez sélectionner une date de fin
                                 </div>
                             </div>
                         </div>
@@ -188,10 +192,10 @@
                     </div>
 
                     <div class="d-flex justify-content-between mt-4">
-                        <a th:href="@{/DoubleElimination/ListeTournois}" class="btn btn-outline-secondary">
+                        <a th:href="@{/DoubleElimination/ListeTournois}" class="btn btn-outline-gaming">
                             <i class="fas fa-arrow-left me-1"></i> Annuler
                         </a>
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-gaming">
                             <i class="fas fa-save me-1"></i> Sauvegarder
                         </button>
                     </div>
@@ -208,26 +212,69 @@
     </div>
 </footer>
 
-<!-- Scripts JavaScript -->
-<script th:replace="~{layout :: script}"></script>
+<!-- Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 <script>
-    // Activer tous les tooltips
+    // Initialize tooltips
     document.addEventListener('DOMContentLoaded', function() {
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        // Tooltips
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[title]'));
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl);
         });
 
-        // Validation du formulaire
+        // Form validation
         var forms = document.querySelectorAll('.needs-validation');
         Array.prototype.slice.call(forms).forEach(function (form) {
             form.addEventListener('submit', function (event) {
                 if (!form.checkValidity()) {
                     event.preventDefault();
                     event.stopPropagation();
+
+                    // Show error messages
+                    var inputs = form.querySelectorAll('input[required], select[required]');
+                    inputs.forEach(function(input) {
+                        var errorMsg = input.parentElement.parentElement.querySelector('.error-message');
+                        if (!input.checkValidity() && errorMsg) {
+                            errorMsg.style.display = 'block';
+                        } else if (errorMsg) {
+                            errorMsg.style.display = 'none';
+                        }
+                    });
                 }
                 form.classList.add('was-validated');
             }, false);
+        });
+
+        // Real-time validation
+        var inputs = document.querySelectorAll('input, select');
+        inputs.forEach(function(input) {
+            input.addEventListener('input', function() {
+                var errorMsg = input.parentElement.parentElement.querySelector('.error-message');
+                if (input.checkValidity() && errorMsg) {
+                    errorMsg.style.display = 'none';
+                }
+            });
+        });
+
+        // Date validation
+        var today = new Date().toISOString().split('T')[0];
+        document.getElementById('dateInscriptionDebut').setAttribute('min', today);
+        document.getElementById('dateInscriptionFin').setAttribute('min', today);
+        document.getElementById('dateDebut').setAttribute('min', today);
+        document.getElementById('dateFin').setAttribute('min', today);
+
+        // Ensure dates are in logical order
+        document.getElementById('dateInscriptionDebut').addEventListener('change', function() {
+            document.getElementById('dateInscriptionFin').setAttribute('min', this.value);
+        });
+
+        document.getElementById('dateInscriptionFin').addEventListener('change', function() {
+            document.getElementById('dateDebut').setAttribute('min', this.value);
+        });
+
+        document.getElementById('dateDebut').addEventListener('change', function() {
+            document.getElementById('dateFin').setAttribute('min', this.value);
         });
     });
 </script>

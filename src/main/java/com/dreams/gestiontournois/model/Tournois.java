@@ -9,6 +9,17 @@ import java.util.Date;
 @Table(name = "tournois")
 public class Tournois {
 
+    @ManyToOne
+    private Game game;
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)

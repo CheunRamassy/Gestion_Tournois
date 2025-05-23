@@ -3,100 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-    <title>Liste des Championnats</title>
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+
+    <title>Liste des Tournois - GameTourneyPro</title>
     <!-- Bootstrap CSS -->
-    <link th:replace="~{layout :: link_bootstrap1}">
-    <link th:replace="~{layout :: link_bootstrap2}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+
+    </style>
 </head>
 <body>
 
+<!-- Navigation -->
 <nav th:replace="~{layout :: navbar}"></nav>
 
+<!-- Éléments flottants -->
+<div class="floating-elements">
+    <div class="floating-element">🎮</div>
+    <div class="floating-element">🏆</div>
+    <div class="floating-element">⚡</div>
+    <div class="floating-element">🎯</div>
+</div>
+
 <!-- Contenu principal -->
-<div class="container mt-4">
-    <!-- Liste des championnats -->
-    <div class="card shadow-sm">
-        <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h5 class="card-title mb-0">
-                    <i class="fas fa-medal me-2"></i>Liste des Championnats
+<div class="main-container">
+    <div class="container">
+        <!-- En-tête de page -->
+        <div class="page-header">
+            <h1 class="page-title">
+                <i class="fas fa-sword me-3"></i>Tournois Simple Élimination
+            </h1>
+            <p class="page-subtitle">
+                Gérez vos tournois d'élimination directe et menez vos participants vers la victoire
+            </p>
+        </div>
+
+        <!-- Carte principale -->
+        <div class="tournament-card">
+            <div class="card-header">
+                <h5 class="card-title">
+                    <i class="fas fa-medal me-2"></i>Liste des Tournois Actifs
                 </h5>
-                <a th:href="@{/RoundRobin/createTournoi}" class="btn btn-success create-btn">
-                    <i class="fas fa-plus-circle me-1"></i> Créer un championnat
+                <a th:href="@{/SimpleElimination/createTournoi}" class="btn btn-gaming">
+                    <i class="fas fa-plus-circle me-2"></i>Créer un Tournoi
                 </a>
             </div>
 
-            <div th:if="${#lists.isEmpty(tournois)}" class="alert alert-info">
-                <i class="fas fa-info-circle me-2"></i> Aucun championnat disponible pour le moment.
+            <!-- État vide -->
+            <div th:if="${#lists.isEmpty(tournois)}" class="empty-state">
+                <div class="empty-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h4 class="empty-title">Aucun Tournoi Disponible</h4>
+                <p class="empty-text">
+                    Commencez par créer votre premier tournoi et rassemblez les meilleurs joueurs !
+                </p>
+                <a th:href="@{/SimpleElimination/createTournoi}" class="btn btn-gaming">
+                    <i class="fas fa-rocket me-2"></i>Créer Mon Premier Tournoi
+                </a>
             </div>
 
-            <div class="table-responsive">
-                <table th:if="${!#lists.isEmpty(tournois)}" class="table table-striped tournament-table">
+            <!-- Table des tournois -->
+            <div th:if="${!#lists.isEmpty(tournois)}" class="table-responsive">
+                <table class="table tournament-table">
                     <thead>
                     <tr>
-                        <th>Nom du Championnat</th>
-                        <th>Participants</th>
-                        <th>Équipes</th>
-                        <th>Format</th>
-                        <th>Match Retour</th>
-                        <th>Prix</th>
-                        <th>Période</th>
-                        <th>Actions</th>
+                        <th><i class="fas fa-trophy me-2"></i>Championnat</th>
+                        <th><i class="fas fa-users me-2"></i>Participants</th>
+                        <th><i class="fas fa-users-cog me-2"></i>Équipes</th>
+                        <th><i class="fas fa-gamepad me-2"></i>Format</th>
+                        <th><i class="fas fa-medal me-2"></i>3ème Place</th>
+                        <th><i class="fas fa-euro-sign me-2"></i>Prix</th>
+                        <th><i class="fas fa-calendar me-2"></i>Période</th>
+                        <th><i class="fas fa-cogs me-2"></i>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="championnat : ${tournois}">
                         <td>
-                            <strong th:text="${championnat.nom}">Nom du championnat</strong>
+                            <div class="tournament-name" th:text="${championnat.nom}">Nom du championnat</div>
                         </td>
                         <td>
-                            <i class="fas fa-users me-1"></i>
-                            <span th:text="${championnat.nombreParticipant}">0</span>
-                        </td>
-                        <td>
-                            <i class="fas fa-users me-1"></i>
-                            <span th:text="${championnat.nombreEquipes}">0</span>
-                        </td>
-                        <td>
-                            <span class="badge bg-primary" th:text="${championnat.formatMatch}">Format</span>
-                        </td>
-                        <td>
-                            <span th:if="${championnat.matchRetour}" class="match-return-badge">
-                                <i class="fas fa-exchange-alt me-1"></i>Avec retour
-                            </span>
-                            <span th:unless="${championnat.matchRetour}" class="no-match-return-badge">
-                                <i class="fas fa-arrow-right me-1"></i>Sans retour
+                            <span class="participant-count">
+                                <i class="fas fa-user me-1"></i>
+                                <span th:text="${championnat.nombreParticipant}">0</span>
                             </span>
                         </td>
                         <td>
-                            <i class="fas fa-euro-sign me-1"></i>
-                            <span th:text="${championnat.prix}">0</span>€
+                            <span class="participant-count">
+                                <i class="fas fa-users me-1"></i>
+                                <span th:text="${championnat.nombreEquipes}">0</span>
+                            </span>
                         </td>
                         <td>
-                            <div class="d-flex flex-column">
-                                <small class="text-muted">
-                                    <i class="fas fa-calendar me-1"></i>
+                            <span class="format-badge" th:text="${championnat.formatMatch}">Format</span>
+                        </td>
+                        <td>
+                            <span th:if="${championnat.matchRetour}" class="third-place-badge has-third-place">
+                                <i class="fas fa-check-circle me-1"></i>Avec match retour
+                            </span>
+                            <span th:unless="${championnat.matchRetour}" class="third-place-badge no-third-place">
+                                <i class="fas fa-times-circle me-1"></i>Sans match retour
+                            </span>
+                        </td>
+                        <td>
+                            <span class="prize-amount">
+                                <i class="fas fa-euro-sign me-1"></i>
+                                <span th:text="${championnat.prix}">0</span>
+                            </span>
+                        </td>
+                        <td>
+                            <div class="date-info">
+                                <div class="date-item">
+                                    <i class="fas fa-play-circle me-1"></i>
                                     <span th:text="${#dates.format(championnat.dateDebut, 'dd/MM/yyyy')}">Date début</span>
-                                </small>
-                                <small class="text-muted">
-                                    <i class="fas fa-calendar-check me-1"></i>
+                                </div>
+                                <div class="date-item">
+                                    <i class="fas fa-stop-circle me-1"></i>
                                     <span th:text="${#dates.format(championnat.dateFin, 'dd/MM/yyyy')}">Date fin</span>
-                                </small>
+                                </div>
                             </div>
                         </td>
-                        <td class="action-cell">
-                            <a th:href="@{/RoundRobin/view/{id}(id=${championnat.id})}" class="action-btn view">
-                                <i class="fas fa-eye me-1"></i> Voir
-                            </a>
-                            <a th:href="@{/RoundRobin/editTournoi/{id}(id=${championnat.id})}" class="action-btn edit">
-                                <i class="fas fa-edit me-1"></i> Éditer
-                            </a>
-                            <form th:action="@{/RoundRobin/delete/{id}(id=${championnat.id})}" method="post" style="display: inline;">
-                                <button type="submit" class="action-btn delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce championnat ?')">
-                                    <i class="fas fa-trash-alt me-1"></i> Supprimer
-                                </button>
-                            </form>
+                        <td>
+                            <div class="actions-cell">
+                                <a th:href="@{/RoundRobin/view/{id}(id=${championnat.id})}" class="action-btn view">
+                                    <i class="fas fa-eye"></i>Voir
+                                </a>
+                                <a th:href="@{/RoundRobin/editTournoi/{id}(id=${championnat.id})}" class="action-btn edit">
+                                    <i class="fas fa-edit"></i>Éditer
+                                </a>
+                                <form th:action="@{/RoundRobin/delete/{id}(id=${championnat.id})}" method="post" style="display: inline;">
+                                    <button type="submit" class="action-btn delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce tournoi ?')">
+                                        <i class="fas fa-trash-alt"></i>Supprimer
+                                    </button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                     </tbody>
@@ -106,8 +152,8 @@
     </div>
 </div>
 
-<footer th:replace="~{layout :: footer}" ></footer>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
-<script th:replace="~{layout :: script}"></script>
 </body>
 </html>

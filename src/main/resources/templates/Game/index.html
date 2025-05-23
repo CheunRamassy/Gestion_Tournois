@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Jeux - Tournament Dreams</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+
+    </style>
+</head>
+<body>
+<!-- Navigation -->
+<nav th:replace="~{layout :: navbar}"></nav>
+
+<h1 class="mb-4">Liste des Jeux</h1>
+
+<a th:href="@{/Jeux/create}" class="btn btn-success mb-3">Ajouter un nouveau jeu</a>
+
+<table class="table table-striped table-bordered">
+    <thead class="table-dark">
+    <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Description</th>
+        <th>Format</th>
+        <th>Modes de jeu</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="game : ${games}">
+        <td th:text="${game.id}"></td>
+        <td th:text="${game.name}"></td>
+        <td th:text="${game.description}"></td>
+        <td th:text="${game.gameFormat}"></td>
+        <td>
+            <ul>
+                <li th:each="mode : ${game.availableModes}"
+                    th:text="${mode.name + ' (' + mode.minPlayers + '-' + mode.maxPlayers + ' joueurs)'}">
+                </li>
+            </ul>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<!--&lt;!&ndash; Floating Elements &ndash;&gt;-->
+<!--<div class="floating-elements">-->
+<!--    <div class="floating-element"><i class="fas fa-gamepad"></i></div>-->
+<!--    <div class="floating-element"><i class="fas fa-trophy"></i></div>-->
+<!--    <div class="floating-element"><i class="fas fa-star"></i></div>-->
+<!--    <div class="floating-element"><i class="fas fa-crown"></i></div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Main Content &ndash;&gt;-->
+<!--<div class="main-container">-->
+<!--    <div class="container">-->
+<!--        &lt;!&ndash; Page Header &ndash;&gt;-->
+<!--        <div class="page-header">-->
+<!--            <h1 class="page-title">-->
+<!--                <i class="fas fa-gamepad me-3"></i>Gestion des Jeux-->
+<!--            </h1>-->
+<!--            <p class="page-subtitle">-->
+<!--                Gérez votre bibliothèque de jeux et leurs modes de jeu-->
+<!--            </p>-->
+<!--            <button class="btn btn-gaming" onclick="showAddGameModal()"><a th:href="@{/Jeux/create}">-->
+<!--                <i class="fas fa-plus me-2"></i>Ajouter un Jeu-->
+<!--            </a>-->
+<!--            </button>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Games List &ndash;&gt;-->
+<!--        <div class="row" id="gamesContainer">-->
+<!--            &lt;!&ndash; Sample Game Card &ndash;&gt;-->
+<!--            <div class="col-lg-6 col-xl-4 mb-4">-->
+<!--                <div class="game-card">-->
+<!--                    <div class="card-header">-->
+<!--                        <h3 class="card-title">League of Legends</h3>-->
+<!--                        <span class="format-badge competitive">Competitive</span>-->
+<!--                    </div>-->
+<!--                    <div class="card-body p-0">-->
+<!--                        <p class="game-description">-->
+<!--                            MOBA stratégique en équipe de 5v5 avec des champions uniques et des objectifs tactiques complexes.-->
+<!--                        </p>-->
+<!--                        <div class="stats-row">-->
+<!--                            <div class="stat-item">-->
+<!--                                <i class="fas fa-users stat-icon"></i>-->
+<!--                                <span class="modes-count">5 modes</span>-->
+<!--                            </div>-->
+<!--                            <div class="stat-item">-->
+<!--                                <i class="fas fa-trophy stat-icon"></i>-->
+<!--                                <span class="tournaments-count">12 tournois</span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="actions-cell mt-3">-->
+<!--                            <button class="action-btn view" onclick="viewGame(1)">-->
+<!--                                <i class="fas fa-eye"></i>Voir-->
+<!--                            </button>-->
+<!--                            <button class="action-btn edit" onclick="editGame(1)">-->
+<!--                                <i class="fas fa-edit"></i>Modifier-->
+<!--                            </button>-->
+<!--                            <button class="action-btn delete" onclick="deleteGame(1)">-->
+<!--                                <i class="fas fa-trash"></i>Supprimer-->
+<!--                            </button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; Sample Game Card 2 &ndash;&gt;-->
+<!--            <div class="col-lg-6 col-xl-4 mb-4">-->
+<!--                <div class="game-card">-->
+<!--                    <div class="card-header">-->
+<!--                        <h3 class="card-title">FIFA 24</h3>-->
+<!--                        <span class="format-badge multiplayer">Multiplayer</span>-->
+<!--                    </div>-->
+<!--                    <div class="card-body p-0">-->
+<!--                        <p class="game-description">-->
+<!--                            Simulation de football réaliste avec différents modes de jeu et équipes internationales.-->
+<!--                        </p>-->
+<!--                        <div class="stats-row">-->
+<!--                            <div class="stat-item">-->
+<!--                                <i class="fas fa-users stat-icon"></i>-->
+<!--                                <span class="modes-count">8 modes</span>-->
+<!--                            </div>-->
+<!--                            <div class="stat-item">-->
+<!--                                <i class="fas fa-trophy stat-icon"></i>-->
+<!--                                <span class="tournaments-count">6 tournois</span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="actions-cell mt-3">-->
+<!--                            <button class="action-btn view" onclick="viewGame(2)">-->
+<!--                                <i class="fas fa-eye"></i>Voir-->
+<!--                            </button>-->
+<!--                            <button class="action-btn edit" onclick="editGame(2)">-->
+<!--                                <i class="fas fa-edit"></i>Modifier-->
+<!--                            </button>-->
+<!--                            <button class="action-btn delete" onclick="deleteGame(2)">-->
+<!--                                <i class="fas fa-trash"></i>Supprimer-->
+<!--                            </button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; Sample Game Card 3 &ndash;&gt;-->
+<!--            <div class="col-lg-6 col-xl-4 mb-4">-->
+<!--                <div class="game-card">-->
+<!--                    <div class="card-header">-->
+<!--                        <h3 class="card-title">Overwatch 2</h3>-->
+<!--                        <span class="format-badge cooperative">Cooperative</span>-->
+<!--                    </div>-->
+<!--                    <div class="card-body p-0">-->
+<!--                        <p class="game-description">-->
+<!--                            FPS héroïque en équipe avec des héros aux capacités uniques et des objectifs variés.-->
+<!--                        </p>-->
+<!--                        <div class="stats-row">-->
+<!--                            <div class="stat-item">-->
+<!--                                <i class="fas fa-users stat-icon"></i>-->
+<!--                                <span class="modes-count">4 modes</span>-->
+<!--                            </div>-->
+<!--                            <div class="stat-item">-->
+<!--                                <i class="fas fa-trophy stat-icon"></i>-->
+<!--                                <span class="tournaments-count">8 tournois</span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="actions-cell mt-3">-->
+<!--                            <button class="action-btn view" onclick="viewGame(3)">-->
+<!--                                <i class="fas fa-eye"></i>Voir-->
+<!--                            </button>-->
+<!--                            <button class="action-btn edit" onclick="editGame(3)">-->
+<!--                                <i class="fas fa-edit"></i>Modifier-->
+<!--                            </button>-->
+<!--                            <button class="action-btn delete" onclick="deleteGame(3)">-->
+<!--                                <i class="fas fa-trash"></i>Supprimer-->
+<!--                            </button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Empty State (hidden by default) &ndash;&gt;-->
+<!--        <div class="empty-state" id="emptyState" style="display: none;">-->
+<!--            <div class="empty-icon">-->
+<!--                <i class="fas fa-gamepad"></i>-->
+<!--            </div>-->
+<!--            <h3 class="empty-title">Aucun jeu trouvé</h3>-->
+<!--            <p class="empty-text">-->
+<!--                Commencez par ajouter votre premier jeu à la plateforme-->
+<!--            </p>-->
+<!--            <button class="btn btn-gaming" onclick="showAddGameModal()">-->
+<!--                <i class="fas fa-plus me-2"></i>Ajouter un Jeu-->
+<!--            </button>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script>
+

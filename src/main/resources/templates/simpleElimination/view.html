@@ -3,93 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/view.css}">
     <title>Vue d'un tournoi</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-    <!-- Bootstrap CSS -->
-    <link th:replace="~{layout :: link_bootstrap1}">
-    <link th:replace="~{layout :: link_bootstrap2}">
-    <style>
-
-    </style>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+
+<!-- Floating Gaming Elements -->
+<div class="floating-elements">
+    <div class="floating-element">🎮</div>
+    <div class="floating-element">🏆</div>
+    <div class="floating-element">⚡</div>
+    <div class="floating-element">🎯</div>
+</div>
 
 <!-- Navigation -->
 <nav th:replace="~{layout :: navbar}"></nav>
 
-<div class="header">
-    <h1 th:text="${tournoi.nom}">Nom du Tournoi</h1>
-    <p class="lead mb-0">Détails du tournoi</p>
+
+<!-- Tournament Header -->
+<div class="tournament-header">
+    <div class="container">
+        <h1 class="tournament-title" th:text="${tournoi.nom}">Championship Gaming Tournament</h1>
+        <p class="tournament-subtitle">Détails complets du tournoi</p>
+    </div>
 </div>
 
-<div class="content">
-    <div class="data-block">
-        <h2><i class="fas fa-users"></i>Nombre de participants</h2>
-        <p th:if="${tournoi.nombreParticipant != null}" class="participant-count" th:text="${tournoi.nombreParticipant}"></p>
-        <p th:if="${tournoi.nombreParticipant == null}" class="no-data">Aucun participant</p>
+<!-- Tournament Content -->
+<div class="container">
+    <div class="data-grid">
+        <div class="data-block">
+            <h2><i class="fas fa-users"></i>Participants</h2>
+            <p th:if="${tournoi.nombreParticipant != null}" class="participant-count" th:text="${tournoi.nombreParticipant}">128</p>
+            <p th:if="${tournoi.nombreParticipant == null}" class="no-data">Aucun participant</p>
+        </div>
+
+        <div class="data-block">
+            <h2><i class="fas fa-users-cog"></i>Équipes</h2>
+            <p th:if="${tournoi.nombreEquipes != null}" class="team-count" th:text="${tournoi.nombreEquipes}">32</p>
+            <p th:if="${tournoi.nombreEquipes == null}" class="no-data">Aucune équipe</p>
+        </div>
+
+        <div class="data-block">
+            <h2><i class="fas fa-gamepad"></i>Format</h2>
+            <p th:if="${tournoi.formatMatch != null}">
+                <span class="format-badge" th:text="${tournoi.formatMatch}">Élimination Simple</span>
+            </p>
+            <p th:if="${tournoi.formatMatch == null}" class="no-data">Aucun format sélectionné</p>
+        </div>
+
+        <div class="data-block">
+            <h2><i class="fas fa-euro-sign"></i>Prix</h2>
+            <p th:if="${tournoi.prix != null}" class="price-value">
+                <span th:text="${tournoi.prix}">50</span> €
+            </p>
+            <p th:if="${tournoi.prix == null}" class="no-data">Aucun prix attribué</p>
+        </div>
+
+        <div class="data-block">
+            <h2><i class="fas fa-calendar-plus"></i>Inscription - Début</h2>
+            <p th:if="${tournoi.dateInscriptionDebut != null}" class="data-value" th:text="${#dates.format(tournoi.dateInscriptionDebut, 'dd/MM/yyyy')}">15/01/2025</p>
+            <p th:if="${tournoi.dateInscriptionDebut == null}" class="no-data">Aucune date</p>
+        </div>
+
+        <div class="data-block">
+            <h2><i class="fas fa-calendar-minus"></i>Inscription - Fin</h2>
+            <p th:if="${tournoi.dateInscriptionFin != null}" class="data-value" th:text="${#dates.format(tournoi.dateInscriptionFin, 'dd/MM/yyyy')}">28/01/2025</p>
+            <p th:if="${tournoi.dateInscriptionFin == null}" class="no-data">Aucune date</p>
+        </div>
+
+        <div class="data-block">
+            <h2><i class="fas fa-play-circle"></i>Début Tournoi</h2>
+            <p th:if="${tournoi.dateDebut != null}" class="data-value" th:text="${#dates.format(tournoi.dateDebut, 'dd/MM/yyyy')}">01/02/2025</p>
+            <p th:if="${tournoi.dateDebut == null}" class="no-data">Aucune date</p>
+        </div>
+
+        <div class="data-block">
+            <h2><i class="fas fa-flag-checkered"></i>Fin Tournoi</h2>
+            <p th:if="${tournoi.dateFin != null}" class="data-value" th:text="${#dates.format(tournoi.dateFin, 'dd/MM/yyyy')}">15/02/2025</p>
+            <p th:if="${tournoi.dateFin == null}" class="no-data">Aucune date</p>
+        </div>
     </div>
 
-    <div class="data-block">
-        <h2><i class="fas fa-users"></i>Nombre d'équipes</h2>
-        <p th:if="${tournoi.nombreEquipes != null}" class="team-count" th:text="${tournoi.nombreEquipes}"></p>
-        <p th:if="${tournoi.nombreEquipes == null}" class="no-data">Aucune équipe</p>
-    </div>
-
-    <div class="data-block">
-        <h2><i class="fas fa-gamepad"></i>Format des matchs</h2>
-        <p th:if="${tournoi.formatMatch != null}">
-            <span class="format-badge" th:text="${tournoi.formatMatch}"></span>
-        </p>
-        <p th:if="${tournoi.formatMatch == null}" class="no-data">Aucun format sélectionné</p>
-    </div>
-
-    <div class="data-block">
-        <h2><i class="fas fa-euro-sign"></i>Prix de participation</h2>
-        <p th:if="${tournoi.prix != null}" class="price-value">
-            <span th:text="${tournoi.prix}"></span> €
-        </p>
-        <p th:if="${tournoi.prix == null}" class="no-data">Aucun prix attribué</p>
-    </div>
-
-    <div class="data-block">
-        <h2><i class="fas fa-calendar-plus"></i>Date d'inscription - début</h2>
-        <p th:if="${tournoi.dateInscriptionDebut != null}" th:text="${#dates.format(tournoi.dateInscriptionDebut, 'dd/MM/yyyy')}"></p>
-        <p th:if="${tournoi.dateInscriptionDebut == null}" class="no-data">Aucune date</p>
-    </div>
-
-    <div class="data-block">
-        <h2><i class="fas fa-calendar-minus"></i>Date d'inscription - fin</h2>
-        <p th:if="${tournoi.dateInscriptionFin != null}" th:text="${#dates.format(tournoi.dateInscriptionFin, 'dd/MM/yyyy')}"></p>
-        <p th:if="${tournoi.dateInscriptionFin == null}" class="no-data">Aucune date</p>
-    </div>
-
-    <div class="data-block">
-        <h2><i class="fas fa-play-circle"></i>Date de début du tournoi</h2>
-        <p th:if="${tournoi.dateDebut != null}" th:text="${#dates.format(tournoi.dateDebut, 'dd/MM/yyyy')}"></p>
-        <p th:if="${tournoi.dateDebut == null}" class="no-data">Aucune date</p>
-    </div>
-
-    <div class="data-block">
-        <h2><i class="fas fa-flag-checkered"></i>Date de fin du tournoi</h2>
-        <p th:if="${tournoi.dateFin != null}" th:text="${#dates.format(tournoi.dateFin, 'dd/MM/yyyy')}"></p>
-        <p th:if="${tournoi.dateFin == null}" class="no-data">Aucune date</p>
-    </div>
-
-    <div class="text-center mt-4">
-        <a th:href="@{/SimpleElimination/ListeTournois}" class="btn btn-outline-secondary">
-            <i class="fas fa-arrow-left me-1"></i> Retour
+    <div class="text-center mt-5">
+        <a th:href="@{/SimpleElimination/ListeTournois}" class="btn-gaming">
+            <i class="fas fa-arrow-left"></i> Retour aux Tournois
         </a>
     </div>
 </div>
 
+<!-- Footer -->
 <div class="footer">
     <div class="container">
-        <p class="mb-0">&copy; 2025 TournoiPro - Tous droits réservés</p>
+        <p class="mb-0">&copy; 2025 TournoiPro - Plateforme Gaming Professionnelle</p>
     </div>
 </div>
 
-<script th:replace="~{layout :: script}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
