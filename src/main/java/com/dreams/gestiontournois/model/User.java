@@ -65,6 +65,4 @@ public class User {
     public void setNomUtilisateur(String nomUtilisateur) {
         this.nomUtilisateur = nomUtilisateur;
     }
-
-
 }
