@@ -16,9 +16,7 @@ public class User {
     private String password;
     private String email;
     private String Pays;
-    private Long totalTournoisOrganiser;
-    private Long totalTournoisParticiper;
-    private Long TournoisGagner;
+
 
     public String getPays() {
         return Pays;
@@ -68,27 +66,5 @@ public class User {
         this.nomUtilisateur = nomUtilisateur;
     }
 
-    public Long getTotalTournoisOrganiser() {
-        return totalTournoisOrganiser;
-    }
 
-    public void setTotalTournoisOrganiser(Long totalTournoisOrganiser) {
-        this.totalTournoisOrganiser = totalTournoisOrganiser;
-    }
-
-    public Long getTotalTournoisParticiper() {
-        return totalTournoisParticiper;
-    }
-
-    public void setTotalTournoisParticiper(Long totalTournoisParticiper) {
-        this.totalTournoisParticiper = totalTournoisParticiper;
-    }
-
-    public Long getTournoisGagner() {
-        return TournoisGagner;
-    }
-
-    public void setTournoisGagner(Long tournoisGagner) {
-        TournoisGagner = tournoisGagner;
-    }
 }
