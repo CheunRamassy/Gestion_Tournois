@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Profil Player - GameTourneyPro</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <!-- Font Awesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/Player/view.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+</head>
+
+<body>
+
+<nav th:replace="~{layout :: navbar}"></nav>
+
+<div class="profile-container">
+    <!-- Background de couverture -->
+    <div class="profile-cover"></div>
+
+    <!-- Informations principales du profil -->
+    <div class="profile-info">
+        <div class="profile-header">
+            <div class="profile-picture">
+                <!-- Remplacer par une vraie image si disponible -->
+                <!-- <img src="path/to/profile-image.jpg" alt="Profile Picture"> -->
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="profile-details">
+                <h1 th:text="${player.nomUtilisateur}">NomUtilisateur</h1>
+                <p th:text="${player.nomComplet}">Nom Complet</p>
+                <p><i class="fas fa-map-marker-alt me-2"></i><span th:text="${player.pays}">Pays</span></p>
+                <p><i class="fas fa-envelope me-2"></i><span th:text="${player.email}">email@exemple.com</span></p>
+                <div class="profile-status">
+                    <div class="status-online"></div>
+                    <span>En ligne</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenu du profil -->
+    <div class="profile-content">
+        <!-- Statistiques principales -->
+        <div class="stats-section">
+            <h2 class="section-title">
+                <i class="fas fa-chart-line"></i>
+                Statistiques de Performance
+            </h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="stat-number" th:text="${player.tournoisGagner}">0</div>
+                    <div class="stat-label">Tournois Gagnés</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-number" th:text="${player.totalTournoisParticiper}">0</div>
+                    <div class="stat-label">Tournois Participés</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div class="stat-number" th:text="${player.totalTournoisOrganiser}">0</div>
+                    <div class="stat-label">Tournois Organisés</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-percentage"></i>
+                    </div>
+                    <div class="stat-number" th:text="${player.totalTournoisParticiper > 0 ? #numbers.formatDecimal(player.tournoisGagner * 100.0 / player.totalTournoisParticiper, 1, 1) : '0.0'} + '%'">0%</div>
+                    <div class="stat-label">Taux de Victoire</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Informations détaillées -->
+        <div class="info-section">
+            <div class="info-card">
+                <h3 class="section-title">
+                    <i class="fas fa-info-circle"></i>
+                    Informations Générales
+                </h3>
+                <div class="info-item">
+                    <div class="info-label">
+                        <i class="fas fa-calendar-alt"></i>
+                        Membre depuis
+                    </div>
+                    <div class="info-value">Janvier 2024</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">
+                        <i class="fas fa-star"></i>
+                        Niveau
+                    </div>
+                    <div class="info-value">
+                        <span class="badge-custom">Expert</span>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">
+                        <i class="fas fa-gamepad"></i>
+                        Jeu Préféré
+                    </div>
+                    <div class="info-value">Counter-Strike</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">
+                        <i class="fas fa-flag"></i>
+                        Région
+                    </div>
+                    <div class="info-value" th:text="${player.pays}">France</div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3 class="section-title">
+                    <i class="fas fa-chart-bar"></i>
+                    Progression
+                </h3>
+                <div class="info-item">
+                    <div class="info-label">
+                        <i class="fas fa-target"></i>
+                        Précision
+                    </div>
+                    <div class="info-value">
+                        <div>85%</div>
+                        <div class="progress-bar-custom">
+                            <div class="progress-fill" style="width: 85%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">
+                        <i class="fas fa-bolt"></i>
+                        Activité
+                    </div>
+                    <div class="info-value">
+                        <div>92%</div>
+                        <div class="progress-bar-custom">
+                            <div class="progress-fill" style="width: 92%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">
+                        <i class="fas fa-medal"></i>
+                        Expérience
+                    </div>
+                    <div class="info-value">
+                        <div>78%</div>
+                        <div class="progress-bar-custom">
+                            <div class="progress-fill" style="width: 78%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">
+                        <i class="fas fa-handshake"></i>
+                        Fair-play
+                    </div>
+                    <div class="info-value">
+                        <div>96%</div>
+                        <div class="progress-bar-custom">
+                            <div class="progress-fill" style="width: 96%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Animation des statistiques au chargement
+    document.addEventListener('DOMContentLoaded', function() {
+        const statNumbers = document.querySelectorAll('.stat-number');
+
+        statNumbers.forEach(stat => {
+            const finalValue = parseInt(stat.textContent) || 0;
+            if (finalValue > 0) {
+                let currentValue = 0;
+                const increment = Math.ceil(finalValue / 50);
+
+                const timer = setInterval(() => {
+                    currentValue += increment;
+                    if (currentValue >= finalValue) {
+                        currentValue = finalValue;
+                        clearInterval(timer);
+                    }
+                    stat.textContent = currentValue + (stat.textContent.includes('%') ? '%' : '');
+                }, 30);
+            }
+        });
+    });
+</script>
+</body>
+</html>
