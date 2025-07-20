@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head th:fragment="page_head">
     <meta charset="UTF-8">
     <title>Mon app</title>
     <!-- Bootstrap CSS -->
     <link th:fragment="link_bootstrap1" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-    <!-- Font Awesome pour les icônes -->
+<!--     Font Awesome pour les icônes-->
     <link th:fragment="link_bootstrap2" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-    <!-- Google Fonts -->
+<!--     Google Fonts-->
     <link th:fragment="link_googleFront"  href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<!--    <link rel="stylesheet" th:href="@{/css/navbar.css}">-->
+
 </head>
 <body>
 
@@ -59,25 +60,34 @@
                             <i class="fas fa-gamepad me-1"></i>Jeux
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="fas fa-users me-1"></i>Communauté
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="fas fa-envelope me-1"></i>Contact
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="fas fa-user me-1"></i>Utilisateur
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/logout}">
-                            <i class="fas fa-sign-out-alt me-1"></i>Déconnexion
-                        </a>
+                    <li class="nav-item dropdown">
+                            <a th:if="${currentUser}" class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user me-1"></i><span th:text="${currentUser}">utilisateur</span>
+                            </a>
+
+                        <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                            <li>
+                                <a class="dropdown-item" th:href="@{/User/InformationPlayer}">
+                                    <i class="fas fa-user-circle"></i>Dashboard
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" th:href="@{/User/Settings}">
+                                    <i class="fas fa-cog"></i>Paramètres
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" sec:authorize="hasRole('ADMIN')" th:href="@{/User/ListUsers}">
+                                    <i class="fas fa-users"></i>Utilisateurs
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item" th:href="@{/logout}">
+                                    <i class="fas fa-sign-out-alt"></i>Déconnexion
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </div>
@@ -85,11 +95,17 @@
     </nav>
 </header>
 
-
+<!-- Contenu de démonstration pour voir le résultat -->
+<div class="container demo-content">
+    <div class="demo-card">
+        <h2 class="text-center mb-4">Navbar avec Menu Utilisateur</h2>
+        <p class="text-center">Cliquez sur "Utilisateur" dans la navbar pour voir le menu déroulant avec les options utilisateur.</p>
+    </div>
+</div>
 
 <!-- Footer -->
-<footer class="footer" th:fragment="footer">
-    <div class="container">
+<footer class="footer" >
+    <div class="container" th:fragment="footer">
         <div class="row">
             <div class="col-md-6">
                 <h5><i class="fas fa-trophy me-2"></i>TournoiPro</h5>

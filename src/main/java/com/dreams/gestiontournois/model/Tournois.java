@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "tournois")
@@ -20,17 +22,30 @@ public class Tournois {
         this.game = game;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "users_id") // <- Ce champ sera créé dans la table Tournois
+    private Users users;
+
+    public Users getUsers() {
+        return users;
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
     private String nom;
-    //    private String jeu;
+//    private String jeu;
 //    private String modeDeJeu;
     private Integer nombreParticipant;
     private Integer nombreEquipes;
     private String formatMatch;
     private String prix;
+    private String utilisateur;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateInscriptionDebut;
@@ -44,6 +59,13 @@ public class Tournois {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateFin;
 
+    public String getUtilisateur() {
+        return utilisateur;
+    }
+
+    public void setUtilisateur(String utilisateur) {
+        this.utilisateur = utilisateur;
+    }
 
 //    public String getJeu() {
 //        return jeu;

@@ -27,7 +27,7 @@ public class GameModeController {
     public String ListeGameMode(Model model) {
         List<GameMode> gameModes = gameModeService.getAllGameModes();
         model.addAttribute("gameModes", gameModes);
-        return "index";
+        return "Game/index";
     }
 
     @GetMapping("/view/{id}")

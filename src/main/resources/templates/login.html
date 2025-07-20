@@ -299,6 +299,50 @@
             text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
         }
 
+        /* Nouveau style pour le bouton d'inscription */
+        .btn-signup {
+            background: transparent;
+            border: 2px solid var(--accent-color);
+            border-radius: 10px;
+            padding: 0.8rem 2rem;
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--accent-color);
+            width: 100%;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            margin-top: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-signup:hover {
+            background: var(--accent-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 255, 136, 0.3);
+        }
+
+        .btn-signup::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-signup:hover::before {
+            left: 100%;
+        }
+
         .esports-visual {
             position: relative;
             display: flex;
@@ -506,7 +550,7 @@
                     Vous avez été déconnecté avec succès.
                 </div>
 
-                <form action="/login" method="post" th:action="@{/login}"> *
+                <form action="/login" method="post" th:action="@{/login}">
                     <div class="input-group mb-3">
                         <span class="input-group-text">
                             <i class="fas fa-user"></i>
@@ -541,8 +585,13 @@
                     </button>
                 </form>
 
+                <!-- Nouveau bouton d'inscription -->
+                <a th:href="@{/User/Registration}" class="btn-signup">
+                    <i class="fas fa-user-plus me-2"></i>Créer un compte
+                </a>
+
                 <div class="login-footer">
-                    <p>Vous n'avez pas de compte? <a href="#">Inscription</a></p>
+                    <p>Rejoignez notre communauté gaming et participez aux tournois les plus exclusifs!</p>
                 </div>
             </div>
 

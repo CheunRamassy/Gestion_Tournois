@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Utilisateurs</title>
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <div th:replace="~{layout :: page_head}"></div>
+    <link rel="stylesheet" th:href="@{/css/user/index.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+
+</head>
+<body>
+
+<div th:replace="~{layout :: navbar}"></div>
+
+<div class="container mt-5">
+    <div class="page-header">
+        <h1 class="page-title">
+            <i class="fas fa-users"></i> Gestion des Utilisateurs
+        </h1>
+        <p class="page-subtitle">Administration et gestion de la communauté gaming</p>
+    </div>
+
+    <div class="users-container">
+        <div class="table-header">
+            <div class="table-title">
+                <i class="fas fa-user-cog"></i>
+                Liste des Utilisateurs
+            </div>
+            <div class="users-count" th:text="'Total: ' + ${#lists.size(users)}">
+                Total: 0
+            </div>
+        </div>
+
+        <div class="users-grid">
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="Rechercher un utilisateur..." id="searchInput">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+
+            <div th:if="${#lists.isEmpty(users)}" class="empty-state">
+                <i class="fas fa-user-slash"></i>
+                <h3>Aucun utilisateur trouvé</h3>
+                <p>La liste des utilisateurs est vide.</p>
+            </div>
+
+            <div th:each="user : ${users}" class="user-card">
+                <div class="user-content">
+                    <div class="user-avatar" th:text="${#strings.substring(user.nomUtilisateur, 0, 1).toUpperCase()}">
+                        U
+                    </div>
+
+                    <div class="user-info">
+                        <div class="info-group">
+                            <span class="info-label">Nom d'utilisateur</span>
+                            <span class="info-value username" th:text="${user.nomUtilisateur}">
+                                    <i class="fas fa-user"></i> Nom d'utilisateur
+                                </span>
+                        </div>
+
+                        <div class="info-group">
+                            <span class="info-label">Nom complet</span>
+                            <span class="info-value" th:text="${user.nomComplet}">
+                                    <i class="fas fa-id-card"></i> Nom complet
+                                </span>
+                        </div>
+
+                        <div class="info-group">
+                            <span class="info-label">Email</span>
+                            <span class="info-value" th:text="${user.email}">
+                                    <i class="fas fa-envelope"></i> email@example.com
+                                </span>
+                        </div>
+
+                        <div class="info-group">
+                            <span class="info-label">Pays</span>
+                            <span class="info-value" th:text="${user.pays}">
+                                    <i class="fas fa-globe"></i> Pays
+                                </span>
+                        </div>
+
+                        <div class="info-group">
+                            <span class="info-label">Rôle</span>
+                            <span class="role-badge" th:text="${user.role}">JOUEUR</span>
+                        </div>
+
+                        <div class="info-group">
+                            <span class="info-label">Niveau</span>
+                            <span class="level-badge"
+                                  th:class="'level-badge level-' + ${#strings.toLowerCase(user.niveau)}"
+                                  th:text="${user.niveau}">
+                                    DEBUTANT
+                                </span>
+                            <div class="stats-mini">
+                                <div class="stat-mini">
+                                    <i class="fas fa-trophy"></i>
+                                    <span th:text="${user.tournoisGagner ?: 0}">0</span>
+                                </div>
+                                <div class="stat-mini">
+                                    <i class="fas fa-gamepad"></i>
+                                    <span th:text="${user.totalTournoisParticiper ?: 0}">0</span>
+                                </div>
+                                <div class="stat-mini">
+                                    <i class="fas fa-calendar"></i>
+                                    <span th:text="${user.totalTournoisOrganiser ?: 0}">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="user-actions">
+                        <form th:action="@{/User/delete/{id}(id=${user.id})}" method="post"
+                              onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">
+                            <button type="submit" class="delete-btn">
+                                <i class="fas fa-trash-alt"></i>
+                                Supprimer
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="~{layout :: footer}"></footer>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Fonction de recherche en temps réel
+    document.getElementById('searchInput').addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase();
+        const userCards = document.querySelectorAll('.user-card');
+
+        userCards.forEach(card => {
+            const userInfo = card.textContent.toLowerCase();
+            if (userInfo.includes(searchTerm)) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+
+    // Animation d'apparition des cartes
+    window.addEventListener('load', function() {
+        const cards = document.querySelectorAll('.user-card');
+        cards.forEach((card, index) => {
+            setTimeout(() => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'all 0.5s ease';
+
+                requestAnimationFrame(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                });
+            }, index * 100);
+        });
+    });
+
+</script>
+</body>
+</html>

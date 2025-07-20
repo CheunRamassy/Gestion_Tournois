@@ -26,49 +26,6 @@ body {
     overflow-x: hidden;
 }
 
-.navbar-custom {
-    background: rgba(10, 10, 10, 0.95);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(0, 255, 136, 0.2);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-}
-
-.navbar-brand {
-    font-family: 'Orbitron', monospace;
-    font-weight: 900;
-    font-size: 1.5rem;
-    background: var(--gradient-gaming);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.nav-link {
-    color: var(--text-light) !important;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    position: relative;
-}
-
-.nav-link:hover, .nav-link.active {
-    color: var(--accent-color) !important;
-}
-
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--gradient-gaming);
-    transition: width 0.3s ease;
-}
-
-.nav-link:hover::after, .nav-link.active::after {
-    width: 100%;
-}
-
 .main-container {
     padding: 120px 0 60px;
     position: relative;

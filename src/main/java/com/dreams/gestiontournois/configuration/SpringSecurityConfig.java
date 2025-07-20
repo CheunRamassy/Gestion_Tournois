@@ -5,8 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -17,7 +15,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -25,11 +22,12 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SpringSecurityConfig {
 
     private final UserService userDetailsServices;
+    private final PasswordEncoder passwordEncoder; //
 
-    public SpringSecurityConfig(UserService userDetailsServices ) {
+    public SpringSecurityConfig(UserService userDetailsServices, PasswordEncoder passwordEncoder) {
         this.userDetailsServices = userDetailsServices;
+        this.passwordEncoder = passwordEncoder; //
     }
-
     @Bean
     public SecurityFilterChain filterChain (HttpSecurity http) throws Exception {
         return http
@@ -39,7 +37,9 @@ public class SpringSecurityConfig {
                     auth.requestMatchers("/Jeux/create").hasRole("ADMIN");
                     auth.requestMatchers("/Jeux/edit").hasRole("ADMIN");
                     auth.requestMatchers("/Jeux/delete").hasRole("ADMIN");
-                    auth.anyRequest().permitAll();
+                    auth.requestMatchers("/User/ListUsers").hasRole("ADMIN");
+                    auth.requestMatchers("/User/delete").hasRole("ADMIN");
+                    auth.anyRequest().authenticated();
         })
                 .formLogin(form -> form
                         .loginPage("/login")
@@ -49,7 +49,7 @@ public class SpringSecurityConfig {
                         .permitAll()
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/login?logout")
+                        .logoutSuccessUrl("/login?logout=true")
                         .permitAll()
                 )
                 .build();
@@ -58,20 +58,12 @@ public class SpringSecurityConfig {
 
 //    @Bean
 //    public UserDetailsService users() {
-//        UserDetails user = User.builder()
-//                .username("user")
-//                .password(passwordEncoder().encode("user"))
-//                .roles("USER").build();
 //        UserDetails admin = User.builder()
 //                .username("admin")
 //                .password(passwordEncoder().encode("admin"))
 //                .roles("USER", "ADMIN").build();
-//        return new InMemoryUserDetailsManager(user, admin);
+//        return new InMemoryUserDetailsManager(admin);
 //    }
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
@@ -82,7 +74,7 @@ public class SpringSecurityConfig {
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsServices);
-        authProvider.setPasswordEncoder(passwordEncoder());
+        authProvider.setPasswordEncoder(passwordEncoder);
         return authProvider;
     }
  }

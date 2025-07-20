@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accès refusé - 403</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/error/403.css}">
+</head>
+<body>
+<!-- Éléments flottants -->
+<div class="floating-elements">
+    <div class="floating-element"><i class="fas fa-shield-alt"></i></div>
+    <div class="floating-element"><i class="fas fa-lock"></i></div>
+    <div class="floating-element"><i class="fas fa-user-slash"></i></div>
+    <div class="floating-element"><i class="fas fa-ban"></i></div>
+    <div class="floating-element"><i class="fas fa-exclamation-triangle"></i></div>
+</div>
+
+<div class="error-container">
+    <div class="error-icon">
+        <i class="fas fa-shield-alt"></i>
+    </div>
+
+    <div class="error-code">403</div>
+
+    <h1 class="error-title">Accès Refusé</h1>
+
+    <p class="error-description">
+        Désolé, vous n'avez pas les permissions nécessaires pour accéder à cette ressource.
+        Votre demande a été bloquée par le système de sécurité.
+    </p>
+
+    <div class="error-details">
+        <h4><i class="fas fa-info-circle"></i> Détails de l'erreur</h4>
+        <p><strong>Code d'erreur :</strong> <code>HTTP 403 Forbidden</code></p>
+        <p><strong>URL demandée :</strong> <code th:text="${#request.requestURL}">URL non disponible</code></p>
+        <p><strong>Méthode :</strong> <code th:text="${#request.method}">GET</code></p>
+        <p><strong>Utilisateur :</strong> <code th:text="${#authentication?.name ?: 'Anonyme'}">Utilisateur non identifié</code></p>
+        <p><strong>Timestamp :</strong> <code th:text="${#temporals.format(#temporals.createNow(), 'dd/MM/yyyy HH:mm:ss')}">--</code></p>
+    </div>
+
+    <div class="action-buttons">
+        <a href="/" class="action-btn primary">
+            <i class="fas fa-home"></i>
+            Retour à l'accueil
+        </a>
+        <a href="/login" class="action-btn secondary" th:if="${#authentication?.name == null}">
+            <i class="fas fa-sign-in-alt"></i>
+            Se connecter
+        </a>
+        <a href="/profile" class="action-btn secondary" th:if="${#authentication?.name != null}">
+            <i class="fas fa-user"></i>
+            Mon profil
+        </a>
+    </div>
+</div>
+
+<div class="timestamp">
+    <span th:text="${#temporals.format(#temporals.createNow(), 'dd/MM/yyyy HH:mm:ss')}">--</span>
+</div>
+</body>
+</html>

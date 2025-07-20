@@ -26,42 +26,14 @@ body {
     overflow-x: hidden;
 }
 
-.navbar-custom {
-    background: rgba(10, 10, 10, 0.95);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(0, 255, 136, 0.2);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-}
-
-.navbar-brand {
-    font-family: 'Orbitron', monospace;
-    font-weight: 900;
-    font-size: 1.5rem;
-    background: var(--gradient-gaming);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.nav-link {
-    color: var(--text-light) !important;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    position: relative;
-}
-
-.nav-link:hover {
-    color: var(--accent-color) !important;
-}
-
-.tournament-header {
+.game-header {
     padding: 120px 0 60px;
     text-align: center;
     position: relative;
     z-index: 2;
 }
 
-.tournament-header::before {
+.game-header::before {
     content: '';
     position: absolute;
     top: 0;
@@ -81,10 +53,10 @@ body {
     100% { transform: translate(30px, 30px); }
 }
 
-.tournament-title {
+.game-title {
     font-family: 'Orbitron', monospace;
     font-weight: 900;
-    font-size: 3.5rem;
+    font-size: 4rem;
     margin-bottom: 15px;
     background: var(--gradient-gaming);
     -webkit-background-clip: text;
@@ -93,11 +65,14 @@ body {
     text-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
 }
 
-.tournament-subtitle {
+.game-subtitle {
     color: var(--text-gray);
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     margin-bottom: 30px;
     font-weight: 300;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .data-grid {
@@ -158,7 +133,7 @@ body {
     margin: 0;
 }
 
-.participant-count, .team-count {
+.game-id {
     font-size: 2.5rem;
     font-weight: 900;
     background: var(--gradient-gaming);
@@ -170,25 +145,120 @@ body {
 .format-badge {
     background: var(--gradient-gaming);
     color: white;
-    padding: 8px 20px;
+    padding: 12px 25px;
     border-radius: 25px;
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 1.1rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     display: inline-block;
-}
-
-.price-value {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--accent-color);
+    box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
 }
 
 .no-data {
     color: var(--text-gray);
     font-style: italic;
     font-size: 1rem;
+}
+
+.modes-section {
+    margin-top: 80px;
+    position: relative;
+}
+
+.section-title {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 50px;
+    background: var(--gradient-gaming);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: var(--gradient-gaming);
+    border-radius: 2px;
+}
+
+.mode-card {
+    background: rgba(22, 33, 62, 0.6);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 0, 128, 0.3);
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.mode-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-secondary), var(--blue-glow));
+}
+
+.mode-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(255, 0, 128, 0.2);
+    border-color: var(--accent-secondary);
+}
+
+.mode-name {
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: var(--accent-secondary);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.mode-name i {
+    margin-right: 10px;
+    color: var(--blue-glow);
+}
+
+.mode-description {
+    color: var(--text-gray);
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.mode-stats {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.mode-stat {
+    background: rgba(255, 0, 128, 0.1);
+    border: 1px solid rgba(255, 0, 128, 0.3);
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+}
+
+.mode-stat i {
+    margin-right: 5px;
+    color: var(--accent-secondary);
 }
 
 .btn-gaming {
@@ -233,15 +303,6 @@ body {
 
 .btn-gaming i {
     margin-right: 8px;
-}
-
-.footer {
-    background: rgba(10, 10, 10, 0.8);
-    padding: 30px 0;
-    border-top: 1px solid rgba(0, 255, 136, 0.2);
-    color: var(--text-gray);
-    text-align: center;
-    margin-top: 60px;
 }
 
 .floating-elements {
@@ -297,8 +358,27 @@ body {
     }
 }
 
+.no-modes {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-gray);
+}
+
+.no-modes i {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    color: var(--accent-color);
+    opacity: 0.5;
+}
+
+.no-modes h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: var(--text-light);
+}
+
 @media (max-width: 768px) {
-    .tournament-title {
+    .game-title {
         font-size: 2.5rem;
     }
 
@@ -309,5 +389,9 @@ body {
 
     .data-block {
         padding: 20px;
+    }
+
+    .mode-stats {
+        flex-direction: column;
     }
 }

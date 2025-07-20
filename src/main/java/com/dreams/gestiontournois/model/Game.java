@@ -9,6 +9,17 @@ import java.util.Set;
 public class Game {
 
     @OneToMany
+    private List<Users> user;
+
+    public List<Users> getUser() {
+        return user;
+    }
+
+    public void setUser(List<Users> user) {
+        this.user = user;
+    }
+
+    @OneToMany
     private Set<Tournois> tournois;
 
     public Set<Tournois> getTournois() {
@@ -22,7 +33,7 @@ public class Game {
     @OneToMany(cascade = CascadeType.ALL)
     private List<GameMode> availableModes;
 
-    public List<GameMode> getavailableModese() {
+    public List<GameMode> getavailableModes() {
         return availableModes;
     }
 
@@ -43,7 +54,6 @@ public class Game {
     }
     @Enumerated
     private GameFormat gameFormat;
-
 
     public Game() {}
 

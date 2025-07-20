@@ -59,7 +59,7 @@ public class GameController {
         gameService.saveGame(game);
 
         redirectAttributes.addFlashAttribute("success",
-                game.getId() != null ? "Utilisateur mis à jour avec succès" : "Utilisateur créé avec succès");
+                game.getId() != null ? "Jeu mis à jour avec succès" : "Jeu créé avec succès");
         return "redirect:/Jeux/ListeJeux";
     }
 
@@ -67,9 +67,9 @@ public class GameController {
     public String deleteGame(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         Boolean jeu = gameService.deleteGameById(id);
         if (jeu) {
-        redirectAttributes.addFlashAttribute("success", "Utilisateur supprimé avec succès");
+        redirectAttributes.addFlashAttribute("success", "Jeu supprimé avec succès");
     } else {
-        redirectAttributes.addFlashAttribute("error", "Utilisateur non trouvé avec l'ID: " + id);
+        redirectAttributes.addFlashAttribute("error", "Jeu non trouvé avec l'ID: " + id);
     }
         return "redirect:/Jeux/ListeJeux";
     }

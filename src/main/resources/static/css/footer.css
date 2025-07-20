@@ -1,0 +1,25 @@
+
+.footer {
+    background: rgba(10, 10, 10, 0.9);
+    padding: 50px 0 30px;
+    border-top: 1px solid rgba(0, 255, 136, 0.2);
+    color: var(--text-gray);
+    margin-top: 60px;
+}
+
+.footer h5 {
+    color: var(--accent-color);
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.footer a {
+    color: var(--text-gray);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer a:hover {
+    color: var(--accent-color);
+}

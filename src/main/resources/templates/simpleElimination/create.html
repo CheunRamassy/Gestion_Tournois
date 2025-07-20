@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/create.css}">
     <title>Créer un Tournoi</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/create.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
 
@@ -37,14 +40,15 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="form-container">
-                <form action="/SimpleElimination/save" method="post" class="needs-validation" novalidate>
+                <form th:action="@{/SimpleElimination/save}" th:object="${tournoi}" method="post" class="needs-validation" novalidate>
+                    <input type="hidden" th:field="*{id}" th:if="${tournoi.id != null}" />
 
                     <!-- Tournament Name -->
                     <div class="form-group">
                         <label for="nom" class="form-label">Nom du tournoi <span class="text-danger">*</span></label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="fas fa-trophy"></i></span>
-                            <input type="text" class="form-control" id="nom" name="nom" required
+                            <input type="text" class="form-control" th:field="*{nom}" id="nom" name="nom" required
                                    placeholder="Entrez le nom du tournoi" maxlength="100" />
                         </div>
                         <div class="error-message" style="display: none;">
@@ -60,7 +64,7 @@
                         </label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="fas fa-users"></i></span>
-                            <input type="number" class="form-control" id="nombreParticipant" name="nombreParticipant" required
+                            <input type="number" class="form-control" th:field="*{nombreParticipant}" id="nombreParticipant" name="nombreParticipant" required
                                    min="2" max="1024" placeholder="Nombre de participants" />
                         </div>
                         <div class="error-message" style="display: none;">
@@ -72,11 +76,11 @@
                     <div class="form-group">
                         <label class="form-label d-block">Mettre une 3ème place</label>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="hasThirdPlaceMatch" id="hasThirdPlaceMatchYes" value="true" checked>
+                            <input class="form-check-input" type="radio" name="hasThirdPlaceMatch" th:field="*{hasThirdPlaceMatch}" id="hasThirdPlaceMatchYes" value="true" checked>
                             <label class="form-check-label" for="hasThirdPlaceMatchYes">Oui</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="hasThirdPlaceMatch" id="hasThirdPlaceMatchNo" value="false">
+                            <input class="form-check-input" type="radio" name="hasThirdPlaceMatch" th:field="*{hasThirdPlaceMatch}" id="hasThirdPlaceMatchNo" value="false">
                             <label class="form-check-label" for="hasThirdPlaceMatchNo">Non</label>
                         </div>
                     </div>
@@ -86,11 +90,30 @@
                         <label for="nombreEquipes" class="form-label">Nombre d'équipes <span class="text-danger">*</span></label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="fas fa-users"></i></span>
-                            <input type="number" class="form-control" id="nombreEquipes" name="nombreEquipes" required
+                            <input type="number" class="form-control" th:field="*{nombreEquipes}" id="nombreEquipes" name="nombreEquipes" required
                                    min="1" max="512" placeholder="Nombre d'équipes participantes" />
                         </div>
                         <div class="error-message" style="display: none;">
                             Le nombre d'équipes doit être entre 1 et 512
+                        </div>
+                    </div>
+
+                    <!-- Game Selection -->
+                    <div class="form-group">
+                        <label for="jeu" class="form-label">Jeu <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-gamepad"></i></span>
+                            <select class="form-select" id="jeu" name="jeuId" required>
+                                <option value="">Sélectionnez un jeu</option>
+                                <option th:each="jeu : ${allGames}"
+                                        th:value="${jeu.id}"
+                                        th:text="${jeu.name}"
+                                        th:selected="${jeu.id == tournoi.game?.id}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="error-message" style="display: none;">
+                            Veuillez sélectionner un jeu
                         </div>
                     </div>
 
@@ -99,7 +122,7 @@
                         <label for="formatMatch" class="form-label">Format des matchs <span class="text-danger">*</span></label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="fas fa-gamepad"></i></span>
-                            <select class="form-select" id="formatMatch" name="formatMatch" required>
+                            <select class="form-select" id="formatMatch" name="formatMatch" th:field="*{formatMatch}" required>
                                 <option value="">Sélectionnez un format</option>
                                 <option value="Bo1">Bo1 (Best of 1)</option>
                                 <option value="Bo3">Bo3 (Best of 3)</option>
@@ -117,7 +140,7 @@
                         <label for="prix" class="form-label">Prix de participation <span class="text-danger">*</span></label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="fas fa-euro-sign"></i></span>
-                            <input type="number" class="form-control" id="prix" name="prix" required
+                            <input type="number" class="form-control" th:field="*{prix}" id="prix" name="prix" required
                                    min="0" step="0.01" placeholder="Frais d'inscription (€)" />
                         </div>
                         <div class="error-message" style="display: none;">
@@ -133,7 +156,7 @@
                                 <label for="dateInscriptionDebut" class="form-label">Début des inscriptions <span class="text-danger">*</span></label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                                    <input type="date" class="form-control" id="dateInscriptionDebut" name="dateInscriptionDebut" required />
+                                    <input type="date" class="form-control" id="dateInscriptionDebut" th:field="*{dateInscriptionDebut}" name="dateInscriptionDebut" required />
                                 </div>
                                 <div class="error-message" style="display: none;">
                                     Veuillez sélectionner une date de début
@@ -147,7 +170,7 @@
                                 <label for="dateInscriptionFin" class="form-label">Fin des inscriptions <span class="text-danger">*</span></label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                                    <input type="date" class="form-control" id="dateInscriptionFin" name="dateInscriptionFin" required />
+                                    <input type="date" class="form-control" id="dateInscriptionFin" th:field="*{dateInscriptionFin}" name="dateInscriptionFin" required />
                                 </div>
                                 <div class="error-message" style="display: none;">
                                     Veuillez sélectionner une date de fin
@@ -163,7 +186,7 @@
                                 <label for="dateDebut" class="form-label">Début du tournoi <span class="text-danger">*</span></label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                                    <input type="date" class="form-control" id="dateDebut" name="dateDebut" required />
+                                    <input type="date" class="form-control" id="dateDebut" th:field="*{dateDebut}" name="dateDebut" required />
                                 </div>
                                 <div class="error-message" style="display: none;">
                                     Veuillez sélectionner une date de début
@@ -177,7 +200,7 @@
                                 <label for="dateFin" class="form-label">Fin du tournoi <span class="text-danger">*</span></label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                                    <input type="date" class="form-control" id="dateFin" name="dateFin" required />
+                                    <input type="date" class="form-control" id="dateFin" th:field="*{dateFin}" name="dateFin" required />
                                 </div>
                                 <div class="error-message" style="display: none;">
                                     Veuillez sélectionner une date de fin
@@ -205,12 +228,8 @@
     </div>
 </main>
 
-<!-- Footer -->
-<footer class="footer mt-auto">
-    <div class="container text-center">
-        <p class="mb-0">&copy; 2025 TournoiPro - Tous droits réservés</p>
-    </div>
-</footer>
+<footer th:replace="~{layout :: footer}"></footer>
+
 
 <!-- Bootstrap JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>

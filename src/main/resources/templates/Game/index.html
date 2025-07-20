@@ -1,203 +1,138 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion des Jeux - Tournament Dreams</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
-    <style>
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/Jeu/index.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
 
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
+
+<div class="floating-elements">
+    <i class="floating-element fas fa-gamepad"></i>
+    <i class="floating-element fas fa-trophy"></i>
+    <i class="floating-element fas fa-users"></i>
+    <i class="floating-element fas fa-star"></i>
+</div>
+
 <!-- Navigation -->
 <nav th:replace="~{layout :: navbar}"></nav>
 
-<h1 class="mb-4">Liste des Jeux</h1>
 
-<a th:href="@{/Jeux/create}" class="btn btn-success mb-3">Ajouter un nouveau jeu</a>
+<div class="container mt-5">
+    <h1 class="main-title">Gestion des Jeux</h1>
 
-<table class="table table-striped table-bordered">
-    <thead class="table-dark">
-    <tr>
-        <th>ID</th>
-        <th>Nom</th>
-        <th>Description</th>
-        <th>Format</th>
-        <th>Modes de jeu</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="game : ${games}">
-        <td th:text="${game.id}"></td>
-        <td th:text="${game.name}"></td>
-        <td th:text="${game.description}"></td>
-        <td th:text="${game.gameFormat}"></td>
-        <td>
-            <ul>
-                <li th:each="mode : ${game.availableModes}"
-                    th:text="${mode.name + ' (' + mode.minPlayers + '-' + mode.maxPlayers + ' joueurs)'}">
-                </li>
-            </ul>
-        </td>
-    </tr>
-    </tbody>
-</table>
+    <div class="text-center mb-4">
+        <a th:href="@{/Jeux/create}" class="btn-add">
+            <i class="fas fa-plus me-2"></i>Ajouter un nouveau jeu
+        </a>
+    </div>
 
-<!--&lt;!&ndash; Floating Elements &ndash;&gt;-->
-<!--<div class="floating-elements">-->
-<!--    <div class="floating-element"><i class="fas fa-gamepad"></i></div>-->
-<!--    <div class="floating-element"><i class="fas fa-trophy"></i></div>-->
-<!--    <div class="floating-element"><i class="fas fa-star"></i></div>-->
-<!--    <div class="floating-element"><i class="fas fa-crown"></i></div>-->
-<!--</div>-->
+    <!-- Game 1: Counter-Strike 2 -->
+    <div class="game-card" th:each="game : ${games}">
+        <div class="game-card-header">
+            <div class="game-card-content">
+                <div class="game-format-badge" th:text="${game.gameFormat}">MULTIPLAYER</div>
+                <h2 class="game-title" th:text="${game.name}">Counter-Strike 2</h2>
+            </div>
+            <div class="game-card-actions">
+                <a th:href="@{/Jeux/view/{id}(id=${game.id})}" class="action-btn view">
+                    <i class="fas fa-eye"></i>Voir le jeu
+                </a>
+                <form th:action="@{/Jeux/delete/{id}(id=${game.id})}" method="post" style="display: inline;">
+                    <button type="submit" class="action-btn delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce jeu ?')">
+                        <i class="fas fa-trash-alt"></i>Supprimer
+                    </button>
+                </form>
+            </div>
+        </div>
 
-<!--&lt;!&ndash; Main Content &ndash;&gt;-->
-<!--<div class="main-container">-->
-<!--    <div class="container">-->
-<!--        &lt;!&ndash; Page Header &ndash;&gt;-->
-<!--        <div class="page-header">-->
-<!--            <h1 class="page-title">-->
-<!--                <i class="fas fa-gamepad me-3"></i>Gestion des Jeux-->
-<!--            </h1>-->
-<!--            <p class="page-subtitle">-->
-<!--                Gérez votre bibliothèque de jeux et leurs modes de jeu-->
-<!--            </p>-->
-<!--            <button class="btn btn-gaming" onclick="showAddGameModal()"><a th:href="@{/Jeux/create}">-->
-<!--                <i class="fas fa-plus me-2"></i>Ajouter un Jeu-->
-<!--            </a>-->
-<!--            </button>-->
-<!--        </div>-->
+        <p class="game-description" th:text="${game.description}">
+            Le jeu de tir tactique le plus populaire au monde. Affrontez-vous dans des matchs intenses nécessitant stratégie, précision et travail d'équipe.
+        </p>
 
-<!--        &lt;!&ndash; Games List &ndash;&gt;-->
-<!--        <div class="row" id="gamesContainer">-->
-<!--            &lt;!&ndash; Sample Game Card &ndash;&gt;-->
-<!--            <div class="col-lg-6 col-xl-4 mb-4">-->
-<!--                <div class="game-card">-->
-<!--                    <div class="card-header">-->
-<!--                        <h3 class="card-title">League of Legends</h3>-->
-<!--                        <span class="format-badge competitive">Competitive</span>-->
-<!--                    </div>-->
-<!--                    <div class="card-body p-0">-->
-<!--                        <p class="game-description">-->
-<!--                            MOBA stratégique en équipe de 5v5 avec des champions uniques et des objectifs tactiques complexes.-->
-<!--                        </p>-->
-<!--                        <div class="stats-row">-->
-<!--                            <div class="stat-item">-->
-<!--                                <i class="fas fa-users stat-icon"></i>-->
-<!--                                <span class="modes-count">5 modes</span>-->
-<!--                            </div>-->
-<!--                            <div class="stat-item">-->
-<!--                                <i class="fas fa-trophy stat-icon"></i>-->
-<!--                                <span class="tournaments-count">12 tournois</span>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="actions-cell mt-3">-->
-<!--                            <button class="action-btn view" onclick="viewGame(1)">-->
-<!--                                <i class="fas fa-eye"></i>Voir-->
-<!--                            </button>-->
-<!--                            <button class="action-btn edit" onclick="editGame(1)">-->
-<!--                                <i class="fas fa-edit"></i>Modifier-->
-<!--                            </button>-->
-<!--                            <button class="action-btn delete" onclick="deleteGame(1)">-->
-<!--                                <i class="fas fa-trash"></i>Supprimer-->
-<!--                            </button>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
+        <div class="game-info">
+            <span class="info-badge">
+                <i class="fas fa-gamepad me-1"></i> <span th:text="${game.gameFormat}"></span>
+            </span>
+            <span class="info-badge">
+                <i class="fas fa-list me-1"></i><span th:text="${#lists.size(game.availableModes)}"></span> modes
+            </span>
+        </div>
 
-<!--            &lt;!&ndash; Sample Game Card 2 &ndash;&gt;-->
-<!--            <div class="col-lg-6 col-xl-4 mb-4">-->
-<!--                <div class="game-card">-->
-<!--                    <div class="card-header">-->
-<!--                        <h3 class="card-title">FIFA 24</h3>-->
-<!--                        <span class="format-badge multiplayer">Multiplayer</span>-->
-<!--                    </div>-->
-<!--                    <div class="card-body p-0">-->
-<!--                        <p class="game-description">-->
-<!--                            Simulation de football réaliste avec différents modes de jeu et équipes internationales.-->
-<!--                        </p>-->
-<!--                        <div class="stats-row">-->
-<!--                            <div class="stat-item">-->
-<!--                                <i class="fas fa-users stat-icon"></i>-->
-<!--                                <span class="modes-count">8 modes</span>-->
-<!--                            </div>-->
-<!--                            <div class="stat-item">-->
-<!--                                <i class="fas fa-trophy stat-icon"></i>-->
-<!--                                <span class="tournaments-count">6 tournois</span>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="actions-cell mt-3">-->
-<!--                            <button class="action-btn view" onclick="viewGame(2)">-->
-<!--                                <i class="fas fa-eye"></i>Voir-->
-<!--                            </button>-->
-<!--                            <button class="action-btn edit" onclick="editGame(2)">-->
-<!--                                <i class="fas fa-edit"></i>Modifier-->
-<!--                            </button>-->
-<!--                            <button class="action-btn delete" onclick="deleteGame(2)">-->
-<!--                                <i class="fas fa-trash"></i>Supprimer-->
-<!--                            </button>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
+        <div class="modes-section" th:if="${not #lists.isEmpty(game.availableModes)}">
+            <h3 class="section-subtitle">
+                <i class="fas fa-play-circle me-2"></i>Modes de Jeu
+            </h3>
 
-<!--            &lt;!&ndash; Sample Game Card 3 &ndash;&gt;-->
-<!--            <div class="col-lg-6 col-xl-4 mb-4">-->
-<!--                <div class="game-card">-->
-<!--                    <div class="card-header">-->
-<!--                        <h3 class="card-title">Overwatch 2</h3>-->
-<!--                        <span class="format-badge cooperative">Cooperative</span>-->
-<!--                    </div>-->
-<!--                    <div class="card-body p-0">-->
-<!--                        <p class="game-description">-->
-<!--                            FPS héroïque en équipe avec des héros aux capacités uniques et des objectifs variés.-->
-<!--                        </p>-->
-<!--                        <div class="stats-row">-->
-<!--                            <div class="stat-item">-->
-<!--                                <i class="fas fa-users stat-icon"></i>-->
-<!--                                <span class="modes-count">4 modes</span>-->
-<!--                            </div>-->
-<!--                            <div class="stat-item">-->
-<!--                                <i class="fas fa-trophy stat-icon"></i>-->
-<!--                                <span class="tournaments-count">8 tournois</span>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="actions-cell mt-3">-->
-<!--                            <button class="action-btn view" onclick="viewGame(3)">-->
-<!--                                <i class="fas fa-eye"></i>Voir-->
-<!--                            </button>-->
-<!--                            <button class="action-btn edit" onclick="editGame(3)">-->
-<!--                                <i class="fas fa-edit"></i>Modifier-->
-<!--                            </button>-->
-<!--                            <button class="action-btn delete" onclick="deleteGame(3)">-->
-<!--                                <i class="fas fa-trash"></i>Supprimer-->
-<!--                            </button>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
+            <div class="row">
+                <div class="col-lg-4 col-md-6" th:each="mode : ${game.availableModes}">
+                    <div class="mode-card">
+                        <h4 class="mode-title" th:text="${mode.name}">Compétitif 5v5</h4>
+                        <p class="mode-description" th:text="${mode.description}">Mode de jeu compétitif standard avec équipes de 5 joueurs.</p>
+                        <div class="mode-info">
+                            <span class="mode-badge">
+                                <i class="fas fa-users me-1"></i><span th:text="${mode.minPlayers}"></span> - <span th:text="${mode.maxPlayers}"></span> joueurs
+                            </span>
+                            <span class="mode-badge">
+                                <i class="fas fa-target me-1"></i>Score: <span th:text="${mode.scoreToWin}"></span>
+                            </span>
+                            <span class="mode-badge">
+                                <i class="fas fa-hashtag me-1"></i>ID: <span th:text="${mode.id}"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<!--        &lt;!&ndash; Empty State (hidden by default) &ndash;&gt;-->
-<!--        <div class="empty-state" id="emptyState" style="display: none;">-->
-<!--            <div class="empty-icon">-->
-<!--                <i class="fas fa-gamepad"></i>-->
-<!--            </div>-->
-<!--            <h3 class="empty-title">Aucun jeu trouvé</h3>-->
-<!--            <p class="empty-text">-->
-<!--                Commencez par ajouter votre premier jeu à la plateforme-->
-<!--            </p>-->
-<!--            <button class="btn btn-gaming" onclick="showAddGameModal()">-->
-<!--                <i class="fas fa-plus me-2"></i>Ajouter un Jeu-->
-<!--            </button>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
+        <div class="modes-section" th:if="${#lists.isEmpty(game.availableModes)}">
+            <div class="no-content">
+                <i class="fas fa-gamepad"></i>
+                <h3>Aucun mode de jeu disponible</h3>
+                <p>Les modes de jeu pour <strong th:text="${game.name}">ce jeu</strong> n'ont pas encore été configurés.</p>
+            </div>
+        </div>
+    </div>
 
+    <footer th:replace="~{layout :: footer}"></footer>
+
+
+    <!-- Bootstrap JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-<script>
 
+<!-- Smooth scrolling for any future navigation -->
+<script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Add some interactivity to cards
+    document.querySelectorAll('.game-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-5px)';
+        });
+
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+</script>
+
+</body>
+</html>

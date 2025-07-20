@@ -56,7 +56,7 @@ public class RoundChampionnatController {
         roundChampionnatService.saveRoundChampionnat(tournoi);
 
         redirectAttributes.addFlashAttribute("success",
-                tournoi.getId() != null ? "Utilisateur mis à jour avec succès" : "Utilisateur créé avec succès");
+                tournoi.getId() != null ? "Tournoi mis à jour avec succès" : "Tournoi créé avec succès");
         return "redirect:/RoundRobin/ListeTournois";
     }
 

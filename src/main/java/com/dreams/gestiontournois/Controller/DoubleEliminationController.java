@@ -23,16 +23,6 @@ public class DoubleEliminationController {
         this.doubleEliminationService = doubleEliminationService;
     }
 
-    @GetMapping("/user")
-    public String user(){
-        return "user";
-    }
-
-    @GetMapping("/admin")
-    public String admin(){
-        return "admin";
-    }
-
     @GetMapping("/ListeTournois")
     public String home (Model model) {
         List<DoubleElimination> tournois =  doubleEliminationService.getAllDoubleEliminations();
@@ -51,7 +41,7 @@ public class DoubleEliminationController {
 
     @GetMapping("/createTournoi")
     public String createDoubleElimination (Model model) {
-        model.addAttribute("tournois", new DoubleElimination());
+        model.addAttribute("tournoi", new DoubleElimination());
         return "doubleElimination/create";
     }
 
@@ -79,7 +69,7 @@ public class DoubleEliminationController {
     @GetMapping("/editTournoi/{id}")
     public String updateDoubleElimination (@PathVariable("id") Long id, Model model) {
         Optional<DoubleElimination> tournois = doubleEliminationService.getDoubleElimination(id);
-            model.addAttribute("tournois", tournois.get());
+            model.addAttribute("tournoi", tournois.get());
             return "doubleElimination/create";
 
     }

@@ -3,173 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
 
     <title>Détails du Tournoi</title>
-    <!-- Bootstrap CSS -->
-    <link th:replace="~{layout :: link_bootstrap1}">
-    <link th:replace="~{layout :: link_bootstrap2}">
-
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <div th:replace="~{layout :: page_head}"></div>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/tournoi/viewRoundRobin.css}">
 </head>
 <body>
 
 <!-- Navigation -->
 <nav th:replace="~{layout :: navbar}"></nav>
 
+<!-- Floating Elements -->
+<div class="floating-elements">
+    <div class="floating-element">🎮</div>
+    <div class="floating-element">⚡</div>
+    <div class="floating-element">🏆</div>
+    <div class="floating-element">🎯</div>
+</div>
 
-<!-- En-tête du tournoi -->
+<!-- Tournament Header -->
 <header class="tournament-header">
     <div class="container text-center">
-        <h1 class="display-4 fw-bold" th:text="${tournoi.nom}">Nom du Tournoi</h1>
-        <p class="lead mb-4">Détails complets du tournoi</p>
+        <h1 class="tournament-title" th:text="${tournoi.nom}">Nom du Tournoi</h1>
+        <p class="tournament-subtitle">Détails complets du tournoi</p>
         <div class="tournament-status status-upcoming">
             <i class="fas fa-clock me-2"></i>À venir
         </div>
     </div>
 </header>
 
-<!-- Contenu principal -->
-<main class="container">
-    <div class="row">
+<!-- Main Content -->
+<main class="main-content">
+    <div class="info-grid">
         <!-- Informations générales -->
-        <div class="col-lg-6">
-            <div class="info-card">
-                <h3 class="info-title">
-                    <i class="fas fa-info-circle"></i>
-                    Informations Générales
-                </h3>
+        <div class="info-card">
+            <h3 class="info-title">
+                <i class="fas fa-info-circle"></i>
+                Informations Générales
+            </h3>
 
-                <div class="info-item">
-                    <div class="info-label">
-                        <i class="fas fa-trophy"></i>
-                        Nom du tournoi
-                    </div>
-                    <div class="info-value" th:text="${tournoi.nom}">Nom du tournoi</div>
+            <div class="info-item">
+                <div class="info-label">
+                    <i class="fas fa-trophy"></i>
+                    Nom du tournoi
                 </div>
+                <div class="info-value" th:text="${tournoi.nom}">Nom du tournoi</div>
+            </div>
 
-                <div class="info-item">
-                    <div class="info-label">
-                        <i class="fas fa-users"></i>
-                        Nombre de participants
-                    </div>
-                    <div class="info-value">
-                        <span class="badge-custom" th:text="${tournoi.nombreParticipant}">0</span>
-                    </div>
+            <div class="info-item">
+                <div class="info-label">
+                    <i class="fas fa-users"></i>
+                    Nombre de participants
                 </div>
-
-                <div class="info-item">
-                    <div class="info-label">
-                        <i class="fas fa-users"></i>
-                        Nombre d'équipes
-                    </div>
-                    <div class="info-value">
-                        <span class="badge-custom" th:text="${tournoi.nombreEquipes}">0</span>
-                    </div>
+                <div class="info-value">
+                    <span class="badge-custom" th:text="${tournoi.nombreParticipant}">0</span>
                 </div>
+            </div>
 
-                <div class="info-item">
-                    <div class="info-label">
-                        <i class="fas fa-gamepad"></i>
-                        Format des matchs
-                    </div>
-                    <div class="info-value">
-                        <span class="badge bg-primary" th:text="${tournoi.formatMatch}">Format</span>
-                    </div>
+            <div class="info-item">
+                <div class="info-label">
+                    <i class="fas fa-users-cog"></i>
+                    Nombre d'équipes
                 </div>
-
-                <div class="info-item">
-                    <div class="info-label">
-                        <i class="fas fa-exchange-alt"></i>
-                        Match retour
-                    </div>
-                    <div class="info-value">
-                        <span class="badge" th:classappend="${tournoi.matchRetour} ? 'bg-success' : 'bg-secondary'"
-                              th:text="${tournoi.matchRetour} ? 'Oui' : 'Non'">Non</span>
-                    </div>
+                <div class="info-value">
+                    <span class="badge-custom" th:text="${tournoi.nombreEquipes}">0</span>
                 </div>
+            </div>
 
-                <div class="info-item">
-                    <div class="info-label">
-                        <i class="fas fa-euro-sign"></i>
-                        Prix de participation
-                    </div>
-                    <div class="info-value">
-                        <strong th:text="${tournoi.prix}">0</strong> €
-                    </div>
+            <div class="info-item">
+                <div class="info-label">
+                    <i class="fas fa-gamepad"></i>
+                    Format des matchs
+                </div>
+                <div class="info-value">
+                    <span class="badge bg-primary" th:text="${tournoi.formatMatch}">Format</span>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-label">
+                    <i class="fas fa-exchange-alt"></i>
+                    Match retour
+                </div>
+                <div class="info-value">
+                    <span class="badge" th:classappend="${tournoi.matchRetour} ? 'bg-success' : 'bg-secondary'"
+                          th:text="${tournoi.matchRetour} ? 'Oui' : 'Non'">Non</span>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-label">
+                    <i class="fas fa-euro-sign"></i>
+                    Prix de participation
+                </div>
+                <div class="info-value">
+                    <span class="badge-custom" th:text="${tournoi.prix} + ' €'">0 €</span>
                 </div>
             </div>
         </div>
 
         <!-- Calendrier -->
-        <div class="col-lg-6">
-            <div class="info-card">
-                <h3 class="info-title">
-                    <i class="fas fa-calendar-alt"></i>
-                    Calendrier
-                </h3>
+        <div class="info-card">
+            <h3 class="info-title">
+                <i class="fas fa-calendar-alt"></i>
+                Calendrier
+            </h3>
 
-                <div class="info-item">
-                    <div class="info-label">
-                        <i class="fas fa-calendar-plus"></i>
-                        Début des inscriptions
-                    </div>
-                    <div class="info-value">
-                        <span class="date-badge" th:text="${#dates.format(tournoi.dateInscriptionDebut, 'dd/MM/yyyy')}">Date</span>
-                    </div>
+            <div class="info-item">
+                <div class="info-label">
+                    <i class="fas fa-calendar-plus"></i>
+                    Début des inscriptions
                 </div>
-
-                <div class="info-item">
-                    <div class="info-label">
-                        <i class="fas fa-calendar-minus"></i>
-                        Fin des inscriptions
-                    </div>
-                    <div class="info-value">
-                        <span class="date-badge" th:text="${#dates.format(tournoi.dateInscriptionFin, 'dd/MM/yyyy')}">Date</span>
-                    </div>
+                <div class="info-value">
+                    <span class="date-badge" th:text="${#dates.format(tournoi.dateInscriptionDebut, 'dd/MM/yyyy')}">Date</span>
                 </div>
+            </div>
 
-                <div class="info-item">
-                    <div class="info-label">
-                        <i class="fas fa-play-circle"></i>
-                        Début du tournoi
-                    </div>
-                    <div class="info-value">
-                        <span class="date-badge" th:text="${#dates.format(tournoi.dateDebut, 'dd/MM/yyyy')}">Date</span>
-                    </div>
+            <div class="info-item">
+                <div class="info-label">
+                    <i class="fas fa-calendar-minus"></i>
+                    Fin des inscriptions
                 </div>
+                <div class="info-value">
+                    <span class="date-badge" th:text="${#dates.format(tournoi.dateInscriptionFin, 'dd/MM/yyyy')}">Date</span>
+                </div>
+            </div>
 
-                <div class="info-item">
-                    <div class="info-label">
-                        <i class="fas fa-flag-checkered"></i>
-                        Fin du tournoi
-                    </div>
-                    <div class="info-value">
-                        <span class="date-badge" th:text="${#dates.format(tournoi.dateFin, 'dd/MM/yyyy')}">Date</span>
-                    </div>
+            <div class="info-item">
+                <div class="info-label">
+                    <i class="fas fa-play-circle"></i>
+                    Début du tournoi
+                </div>
+                <div class="info-value">
+                    <span class="date-badge" th:text="${#dates.format(tournoi.dateDebut, 'dd/MM/yyyy')}">Date</span>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-label">
+                    <i class="fas fa-flag-checkered"></i>
+                    Fin du tournoi
+                </div>
+                <div class="info-value">
+                    <span class="date-badge" th:text="${#dates.format(tournoi.dateFin, 'dd/MM/yyyy')}">Date</span>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Actions -->
-    <div class="row mt-4">
-        <div class="col-12">
-            <div class="info-container text-center">
-                <div class="d-flex justify-content-center gap-3 flex-wrap">
-                    <a th:href="@{/RoundRobin/ListeTournois}" class="btn btn-outline-secondary">
-                        <i class="fas fa-arrow-left me-2"></i>Retour à la liste
-                    </a>
-                    <a th:href="@{/RoundRobin/edit/{id}(id=${tournoi.id})}" class="btn btn-primary">
-                        <i class="fas fa-edit me-2"></i>Modifier le tournoi
-                    </a>
-                    <button class="btn btn-success">
-                        <i class="fas fa-play me-2"></i>Démarrer le tournoi
-                    </button>
-                    <button class="btn btn-info">
-                        <i class="fas fa-users me-2"></i>Gérer les participants
-                    </button>
-                </div>
-            </div>
+    <div class="actions-container">
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+            <a th:href="@{/RoundRobin/ListeTournois}" class="btn-outline-gaming">
+                <i class="fas fa-arrow-left"></i>Retour à la liste
+            </a>
+            <a th:href="@{/RoundRobin/edit/{id}(id=${tournoi.id})}" class="btn-secondary-gaming">
+                <i class="fas fa-edit"></i>Modifier le tournoi
+            </a>
+            <button class="btn-gaming">
+                <i class="fas fa-play"></i>Démarrer le tournoi
+            </button>
+            <button class="btn-info-gaming">
+                <i class="fas fa-users"></i>Gérer les participants
+            </button>
         </div>
     </div>
 </main>
@@ -207,5 +207,5 @@
 </footer>
 
 <script th:replace="~{layout :: script}"></script>
-    </body>
-    </html>
+</body>
+</html>

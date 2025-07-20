@@ -1,7 +1,10 @@
 package com.dreams.gestiontournois.repository;
 
-import com.dreams.gestiontournois.model.User;
+import com.dreams.gestiontournois.model.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+import java.util.Optional;
+
+public interface UserRepository extends JpaRepository<Users, Long> {
+    Optional<Users> findBynomUtilisateur(String nomUtilisateur);
 }

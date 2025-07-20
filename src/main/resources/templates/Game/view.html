@@ -1,10 +1,178 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"     >
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails du Jeu - Tournament Dreams</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/Jeu/view.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
+<!-- Floating Elements -->
+<div class="floating-elements">
+    <i class="floating-element fas fa-gamepad"></i>
+    <i class="floating-element fas fa-trophy"></i>
+    <i class="floating-element fas fa-users"></i>
+    <i class="floating-element fas fa-star"></i>
+</div>
+
+<nav th:replace="~{layout :: navbar}"></nav>
+
+<!-- Game Header -->
+<section class="game-header">
+    <div class="container">
+        <h1 class="game-title" th:text="${game.name}">Counter-Strike 2</h1>
+        <p class="game-subtitle" th:text="${game.description}">
+            Le jeu de tir tactique le plus populaire au monde. Affrontez-vous dans des matchs intenses nécessitant stratégie, précision et travail d'équipe pour remporter la victoire.
+        </p>
+
+        <div class="mt-4">
+            <a th:href="@{/Jeux/editJeu/{id}(id=${game.id})}" class="btn-gaming me-3">
+                <i class="fas fa-plus me-2"></i>Editer le jeu
+            </a>
+            <a th:href="@{/Jeux/ListeJeux}" class="btn-gaming">
+                <i class="fas fa-arrow-left me-2" ></i>Retour aux Jeux
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Game Details -->
+<section class="container">
+    <div class="data-grid">
+        <div class="data-block">
+            <h2><i class="fas fa-hashtag" ></i>ID du Jeu</h2>
+            <p class="data-value game-id" th:text="${game.id}">001</p>
+        </div>
+
+        <div class="data-block">
+            <h2><i class="fas fa-gamepad"></i>Nom du Jeu</h2>
+            <p class="data-value" th:text="${game.name}">Counter-Strike 2</p>
+        </div>
+
+        <div class="data-block">
+            <h2><i class="fas fa-users"></i>Format de Jeu</h2>
+            <div class="format-badge" th:text="${game.gameFormat}">MULTIPLAYER</div>
+        </div>
+
+        <div class="data-block">
+            <h2><i class="fas fa-list"></i>Modes Disponibles</h2>
+            <p class="data-value game-id" >3</p>
+<!--            th:text ="${lists.size(game.availableModes)}"-->
+        </div>
+
+        <div class="data-block" style="grid-column: 1 / -1;">
+            <h2><i class="fas fa-info-circle"></i>Description</h2>
+            <p class="data-value" style="font-size: 1.2rem; line-height: 1.6; font-weight: 400;" th:text ="${game.description}">
+                Le jeu de tir tactique le plus populaire au monde. Affrontez-vous dans des matchs intenses nécessitant stratégie, précision et travail d'équipe pour remporter la victoire. Chaque round compte, chaque décision peut faire la différence entre la victoire et la défaite.
+            </p>
+        </div>
+    </div>
+
+    <!-- Game Modes Section -->
+    <section id="modes" class="modes-section">
+        <h2 class="section-title">
+            <i class="fas fa-play-circle me-3"></i>Modes de Jeu
+        </h2>
+
+        <div class="row" th:each ="mode : ${game.availableModes}">
+            <!-- Mode 1: Competitive -->
+            <div class="col-lg-6 mb-4">
+                <div class="mode-card">
+                    <h3 class="mode-name">
+                        <i class="fas fa-crosshairs"></i><p th:text="${mode.name}">Compétitif 5v5</p>
+                    </h3>
+                    <p class="mode-description" th:text="${mode.description}">
+                        Mode de jeu compétitif standard avec équipes de 5 joueurs. Premier à 16 rounds remporte la partie. Mode classé avec système de rang.
+                    </p>
+                    <div class="mode-stats">
+                            <span class="mode-stat">
+                                <i class="fas fa-users"></i> <p th:text ="${mode.minPlayers}"/> - <p th:text ="${mode.maxPlayers}"/>5-10 joueurs
+                            </span>
+                        <span class="mode-stat">
+                                <i class="fas fa-target"></i><p th:text ="${mode.scoreToWin}">Score: 16</p>
+                            </span>
+                        <span class="mode-stat">
+                                <i class="fas fa-hashtag"></i><p th:text ="${mode.id}">ID: 101</p>
+                            </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Example: No modes available -->
+        <!--
+        <div class="no-modes">
+            <i class="fas fa-gamepad"></i>
+            <h3>Aucun mode de jeu disponible</h3>
+            <p>Les modes de jeu pour ce titre n'ont pas encore été configurés.</p>
+        </div>
+        -->
+    </section>
+
+
+</section>
+
+<footer th:replace="~{layout :: footer}"></footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Enhanced hover effects
+    document.querySelectorAll('.data-block, .mode-card').forEach(card => {
+        card.addEventListener('mousemove', function(e) {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            const rotateX = (y - centerY) / 10;
+            const rotateY = (centerX - x) / 10;
+
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
+        });
+
+        card.addEventListener('mouseleave', function() {
+            card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+        });
+    });
+
+    // Dynamic background effect
+    document.addEventListener('mousemove', function(e) {
+        const floatingElements = document.querySelectorAll('.floating-element');
+        const mouseX = e.clientX / window.innerWidth;
+        const mouseY = e.clientY / window.innerHeight;
+
+        floatingElements.forEach((element, index) => {
+            const speed = (index + 1) * 0.5;
+            const x = (mouseX - 0.5) * speed;
+            const y = (mouseY - 0.5) * speed;
+
+            element.style.transform += ` translate(${x}px, ${y}px)`;
+        });
+    });
+</script>
 </body>
 </html>

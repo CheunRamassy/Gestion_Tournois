@@ -1,3 +1,17 @@
+
+:root {
+    --gradient-gaming: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --accent-color: #00ff88;
+    --text-light: #e0e0e0;
+    --dark-bg: #0a0a0a;
+}
+
+body {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+}
+
 .navbar-custom {
     background: rgba(10, 10, 10, 0.95);
     backdrop-filter: blur(10px);
@@ -13,6 +27,7 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    text-decoration: none;
 }
 
 .nav-link {
@@ -20,6 +35,7 @@
     font-weight: 500;
     transition: all 0.3s ease;
     position: relative;
+    text-decoration: none;
 }
 
 .nav-link:hover, .nav-link.active {
@@ -40,6 +56,7 @@
 .nav-link:hover::after, .nav-link.active::after {
     width: 100%;
 }
+
 .dropdown-menu {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(15px);
@@ -55,6 +72,7 @@
     transition: all 0.3s ease;
     border-bottom: 1px solid rgba(0,0,0,0.1);
     font-weight: 500;
+    color: #333;
 }
 
 .dropdown-item:last-child {
@@ -79,6 +97,35 @@
 
 .dropdown.show .dropdown-toggle::after {
     transform: rotate(180deg);
+}
+
+/* Navbar toggler personnalisé */
+.navbar-toggler {
+    border: 1px solid var(--accent-color);
+    border-radius: 8px;
+}
+
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 0.2rem rgba(0, 255, 136, 0.25);
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%2300ff88' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* Contenu de démonstration */
+.demo-content {
+    padding: 40px 0;
+}
+
+.demo-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    padding: 30px;
+    margin: 20px 0;
+    color: white;
 }
 
 @media (max-width: 991px) {
