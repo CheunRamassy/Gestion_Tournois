@@ -32,7 +32,7 @@
 <div class="tournament-header">
     <div class="container">
         <h1 class="tournament-title" th:text="${tournoi.nom}">Championship Gaming Tournament</h1>
-        <p class="tournament-subtitle">Détails complets du tournoi</p>
+        <p class="tournament-subtitle">Simple élimination</p>
     </div>
 </div>
 
@@ -94,7 +94,7 @@
 
     <div class="actions-container">
         <div class="d-flex justify-content-center gap-3 flex-wrap">
-            <a th:href="@{/SimpleElimination/ListeTournois}" class="btn-outline-gaming">
+            <a th:href="${previousUrl}" class="btn-outline-gaming">
                 <i class="fas fa-arrow-left"></i>Retour à la liste
             </a>
             <a th:href="@{/SimpleElimination/editTournoi/{id}(id=${tournoi.id})}" class="btn-secondary-gaming">

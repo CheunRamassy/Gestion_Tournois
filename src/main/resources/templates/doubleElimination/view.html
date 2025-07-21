@@ -32,7 +32,7 @@
 <!-- Tournament Header -->
 <div class="tournament-header">
     <h1 class="tournament-title" th:text="${tournois.nom}">Nom du Tournoi</h1>
-    <p class="tournament-subtitle">Détails du tournoi</p>
+    <p class="tournament-subtitle">Double élimination</p>
 </div>
 
 <!-- Data Grid -->
@@ -92,18 +92,17 @@
 
 <div class="actions-container">
     <div class="d-flex justify-content-center gap-3 flex-wrap">
-        <a th:href="@{/DoubleElimination/ListeTournois}" class="btn-outline-gaming">
+        <a th:href="${previousUrl}" class="btn-outline-gaming">
             <i class="fas fa-arrow-left"></i>Retour à la liste
         </a>
-        <a th:href="@{/DoubleElimination/edit/{id}(id=${tournois.id})}" class="btn-secondary-gaming">
+        <a th:href="@{/DoubleElimination/editTournoi/{id}(id=${tournois.id})}" class="btn-secondary-gaming">
             <i class="fas fa-edit"></i>Modifier le tournoi
         </a>
-        <button class="btn-gaming">
-            <i class="fas fa-play"></i>Démarrer le tournoi
-        </button>
-        <button class="btn-info-gaming">
-            <i class="fas fa-users"></i>Gérer les participants
-        </button>
+        <form th:action="@{/DoubleElimination/delete/{id}(id=${tournois.id})}" method="post" style="display: inline;">
+            <button type="submit" class= "btn-info-gaming" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce tournoi ?')" >
+                <i class="fas fa-trash-alt"></i>Supprimer
+            </button>
+        </form>
     </div>
 </div>
 

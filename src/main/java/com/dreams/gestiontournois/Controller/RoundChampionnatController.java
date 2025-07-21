@@ -1,7 +1,12 @@
 package com.dreams.gestiontournois.Controller;
 
+import com.dreams.gestiontournois.Service.GameService;
 import com.dreams.gestiontournois.Service.RoundChampionnatService;
+import com.dreams.gestiontournois.Service.UserService;
+import com.dreams.gestiontournois.model.Game;
 import com.dreams.gestiontournois.model.RoundChampionnat;
+import com.dreams.gestiontournois.model.Users;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,9 +23,14 @@ public class RoundChampionnatController {
 
     @Autowired
     private final RoundChampionnatService roundChampionnatService;
+    private final GameService gameService;
+    private final UserService userService;
 
-    public RoundChampionnatController(RoundChampionnatService roundChampionnatService) {
+    public RoundChampionnatController(RoundChampionnatService roundChampionnatService, GameService gameService,
+                                      UserService userService) {
         this.roundChampionnatService = roundChampionnatService;
+        this.gameService = gameService;
+        this.userService = userService;
     }
 
     @GetMapping("/ListeTournois")
@@ -31,27 +41,41 @@ public class RoundChampionnatController {
     }
 
     @GetMapping("/view/{id}")
-    public String showRoundChampionnat(@PathVariable("id") Long id, Model model) {
+    public String showRoundChampionnat(@PathVariable("id") Long id, HttpServletRequest request, Model model) {
         Optional<RoundChampionnat> tournoi = roundChampionnatService.getRoundChampionnatById(id);
         model.addAttribute("tournoi", tournoi.get());
+
+        String referer = request.getHeader("Referer");
+        model.addAttribute("previousUrl", referer);
         return "roundChampionnat/view";
     }
 
     @GetMapping("/createTournoi")
     public String createRoundChampionnat(Model model) {
         model.addAttribute("tournoi", new RoundChampionnat());
+
+        List<Game> allGames = gameService.getAllGames();
+        model.addAttribute("allGames", allGames);
         return "roundChampionnat/create";
         }
 
     @PostMapping("/save")
     public String saveRoundChampionnat(
             @ModelAttribute("tournoi") RoundChampionnat tournoi,
+            @RequestParam("jeuId") Long jeuId,
             BindingResult result,
             RedirectAttributes redirectAttributes) {
 
         if (result.hasErrors()) {
             return "roundChampionnat/create";
         }
+
+        Users currentUser = userService.getCurrentUser();
+        tournoi.setUsers(currentUser);
+
+        // Vérifie si le jeu préféré existe
+        Optional<Game> selectedGame = gameService.getGameById(jeuId);
+        selectedGame.ifPresent(tournoi::setGame);
 
         roundChampionnatService.saveRoundChampionnat(tournoi);
 

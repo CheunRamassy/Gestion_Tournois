@@ -7,6 +7,7 @@ import com.dreams.gestiontournois.model.Game;
 import com.dreams.gestiontournois.model.SimpleElimination;
 import com.dreams.gestiontournois.model.Users;
 import com.dreams.gestiontournois.repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -43,9 +44,12 @@ public class SimpleEliminationController {
     }
 
     @GetMapping("/view/{id}")
-    public String showSimpleElimination(@PathVariable("id") Long id, Model model) {
+    public String showSimpleElimination(@PathVariable("id") Long id, HttpServletRequest request, Model model) {
         Optional<SimpleElimination> tournoi =  simpleEliminationService.getSimpleEliminationById(id);
         model.addAttribute("tournoi", tournoi.get());
+
+        String referer = request.getHeader("Referer");
+        model.addAttribute("previousUrl", referer);
         return "/simpleElimination/view";
     }
 

@@ -30,7 +30,9 @@
 <!-- Form Header -->
 <header class="form-header">
   <div class="container text-center">
-    <h1 class="form-title">Créer un Tournoi</h1>
+    <h1 class="form-title" th:if="${tournoi.id != null}">Modifier le Tournoi</h1>
+    <h1 class="form-title" th:if="${tournoi.id == null}">Créer un Tournoi</h1>
+
     <p class="form-subtitle">Remplissez les informations ci-dessous pour configurer votre tournoi</p>
   </div>
 </header>
@@ -94,6 +96,25 @@
             </div>
             <div class="error-message" style="display: none;">
               Le nombre d'équipes doit être entre 1 et 512
+            </div>
+          </div>
+
+          <!-- Game Selection -->
+          <div class="form-group">
+            <label for="jeu" class="form-label">Jeu <span class="text-danger">*</span></label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-gamepad"></i></span>
+              <select class="form-select" id="jeu" name="jeuId" required>
+                <option value="">Sélectionnez un jeu</option>
+                <option th:each="jeu : ${allGames}"
+                        th:value="${jeu.id}"
+                        th:text="${jeu.name}"
+                        th:selected="${jeu.id == tournoi.game?.id}">
+                </option>
+              </select>
+            </div>
+            <div class="error-message" style="display: none;">
+              Veuillez sélectionner un jeu
             </div>
           </div>
 

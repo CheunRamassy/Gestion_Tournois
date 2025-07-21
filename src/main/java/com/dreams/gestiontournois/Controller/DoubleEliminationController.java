@@ -1,7 +1,12 @@
 package com.dreams.gestiontournois.Controller;
 
 import com.dreams.gestiontournois.Service.DoubleEliminationService;
+import com.dreams.gestiontournois.Service.GameService;
+import com.dreams.gestiontournois.Service.UserService;
 import com.dreams.gestiontournois.model.DoubleElimination;
+import com.dreams.gestiontournois.model.Game;
+import com.dreams.gestiontournois.model.Users;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,9 +23,14 @@ public class DoubleEliminationController {
 
     @Autowired
     private final DoubleEliminationService doubleEliminationService;
+    private final GameService gameService;
+    private final UserService userService;
 
-    public DoubleEliminationController (DoubleEliminationService doubleEliminationService){
+    public DoubleEliminationController (DoubleEliminationService doubleEliminationService, GameService gameService,
+                                        UserService userService){
         this.doubleEliminationService = doubleEliminationService;
+        this.gameService = gameService;
+        this.userService = userService;
     }
 
     @GetMapping("/ListeTournois")
@@ -31,10 +41,12 @@ public class DoubleEliminationController {
     }
 
     @GetMapping("/view/{id}")
-    public String showDoubleElimination (@PathVariable("id") Long id, Model model) {
+    public String showDoubleElimination (@PathVariable("id") Long id, HttpServletRequest request, Model model) {
         Optional<DoubleElimination> tournois = doubleEliminationService.getDoubleElimination(id);
-    //        if(tournois.isPresent()) {}
-    //        tournois.orElse() (methode de optional) à utiliser si tournois est vide
+
+
+        String referer = request.getHeader("Referer");
+        model.addAttribute("previousUrl", referer);
         model.addAttribute("tournois", tournois.get());
         return "doubleElimination/view";
     }
@@ -42,12 +54,16 @@ public class DoubleEliminationController {
     @GetMapping("/createTournoi")
     public String createDoubleElimination (Model model) {
         model.addAttribute("tournoi", new DoubleElimination());
+
+        List<Game> allGames = gameService.getAllGames();
+        model.addAttribute("allGames", allGames);
         return "doubleElimination/create";
     }
 
     @PostMapping("/save")
     public String saveUtilisateur(
             @ModelAttribute("tournois") DoubleElimination tournois,
+            @RequestParam("jeuId") Long jeuId,
             BindingResult result,
             RedirectAttributes redirectAttributes) {
 
@@ -55,6 +71,13 @@ public class DoubleEliminationController {
         if (result.hasErrors()) {
             return "doubleElimination/create";
         }
+
+        Users currentUser = userService.getCurrentUser();
+        tournois.setUsers(currentUser);
+
+        // Vérifie si le jeu préféré existe
+        Optional<Game> selectedGame = gameService.getGameById(jeuId);
+        selectedGame.ifPresent(tournois::setGame);
 
         // Sauvegarder l'utilisateur
         doubleEliminationService.saveDoubleElimination(tournois);

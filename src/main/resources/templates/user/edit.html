@@ -144,10 +144,18 @@
                     </div>
                 </div>
 
-                <!-- Onglet Statistiques -->
+                <!-- Onglet Liste tournois -->
                 <div class="tab-pane fade" id="listeTournois" role="tabpanel">
                     <div class="form-section">
                         <h3><i class="fas fa-chart-line"></i>Vos Tournois</h3>
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary">
+                                <a th:href="@{/DoubleElimination/createTournoi}" class="btn btn-primary">
+                                    <i class="fas fa-plus-circle me-2"></i>Créer un Tournoi
+                                </a>
+                            </button>
+                        </div>
+
 
                         <!-- État vide quand aucun tournoi -->
                         <div th:if="${#lists.isEmpty(user.tournoi)}" class="empty-state">

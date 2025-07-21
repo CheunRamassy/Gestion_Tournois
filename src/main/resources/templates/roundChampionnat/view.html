@@ -29,7 +29,7 @@
 <header class="tournament-header">
     <div class="container text-center">
         <h1 class="tournament-title" th:text="${tournoi.nom}">Nom du Tournoi</h1>
-        <p class="tournament-subtitle">Détails complets du tournoi</p>
+        <p class="tournament-subtitle">Round robin</p>
         <div class="tournament-status status-upcoming">
             <i class="fas fa-clock me-2"></i>À venir
         </div>
@@ -155,21 +155,19 @@
         </div>
     </div>
 
-    <!-- Actions -->
     <div class="actions-container">
         <div class="d-flex justify-content-center gap-3 flex-wrap">
-            <a th:href="@{/RoundRobin/ListeTournois}" class="btn-outline-gaming">
+            <a th:href="${previousUrl}" class="btn-outline-gaming">
                 <i class="fas fa-arrow-left"></i>Retour à la liste
             </a>
-            <a th:href="@{/RoundRobin/edit/{id}(id=${tournoi.id})}" class="btn-secondary-gaming">
+            <a th:href="@{/RoundRobin/editTournoi/{id}(id=${tournoi.id})}" class="btn-secondary-gaming">
                 <i class="fas fa-edit"></i>Modifier le tournoi
             </a>
-            <button class="btn-gaming">
-                <i class="fas fa-play"></i>Démarrer le tournoi
-            </button>
-            <button class="btn-info-gaming">
-                <i class="fas fa-users"></i>Gérer les participants
-            </button>
+            <form th:action="@{/RoundRobin/delete/{id}(id=${tournoi.id})}" method="post" style="display: inline;">
+                <button type="submit" class= "btn-info-gaming" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce tournoi ?')" >
+                    <i class="fas fa-trash-alt"></i>Supprimer
+                </button>
+            </form>
         </div>
     </div>
 </main>

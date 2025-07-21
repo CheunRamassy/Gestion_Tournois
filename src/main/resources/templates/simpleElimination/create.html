@@ -30,8 +30,8 @@
 <!-- Form Header -->
 <header class="form-header">
     <div class="container text-center">
-        <h1 class="form-title">Créer un Tournoi</h1>
-        <p class="form-subtitle">Remplissez les informations ci-dessous pour configurer votre tournoi</p>
+        <h1 class="form-title" th:if="${tournoi.id != null}">Modifier le Tournoi</h1>
+        <h1 class="form-title" th:if="${tournoi.id == null}">Créer un Tournoi</h1>        <p class="form-subtitle">Remplissez les informations ci-dessous pour configurer votre tournoi</p>
     </div>
 </header>
 
